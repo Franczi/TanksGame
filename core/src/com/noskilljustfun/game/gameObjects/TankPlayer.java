@@ -2,8 +2,10 @@ package com.noskilljustfun.game.gameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 
 public class TankPlayer extends Image {
 
@@ -32,6 +34,7 @@ public class TankPlayer extends Image {
     public void moveUp() {
         this.setRotation(180);
         if ((int)(position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
+
             position.y += velocity;
         }
     }
@@ -56,13 +59,24 @@ public class TankPlayer extends Image {
     public void moveRight() {
         if ((int)(position.x + getWidth() + velocity) <= Gdx.graphics.getWidth()) {
             position.x += velocity;
-            Gdx.app.log("right","go go go!");
-            Gdx.app.log("right",String.valueOf(position.x)+" "+String.valueOf(Gdx.graphics.getWidth()));
         }
         setRotation(90);
+
     }
 
     public void update() {
         this.setPosition(position.x, position.y);
+    }
+
+    Rectangle getPlayerTankRectangle(Vector2 nextPosition){
+
+        return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
+    }
+
+    boolean checkforWorldObjecCollision(int x, int y){
+        return EnvironmentCollisionManager
+                .getInstance()
+                .checkForObjectCollision(
+                        new Rectangle(x,y,getWidth(),getHeight()));
     }
 }
