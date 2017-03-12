@@ -24,8 +24,8 @@ public class MenuScreen extends BaseScreen {
         super.render(delta);
         spriteBatch.begin();
         spriteBatch.draw(startButton
-                , (Gdx.graphics.getWidth()/2)-200
-                , (Gdx.graphics.getHeight()/2)-200
+                , (Gdx.graphics.getWidth()/2)-125
+                , (Gdx.graphics.getHeight()/2)-125
                 , 250
                 , 250);
 

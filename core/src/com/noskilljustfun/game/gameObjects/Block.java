@@ -47,8 +47,8 @@ public class Block extends Image{
 
 
         position = new Vector2(
-                new Random().nextInt(Gdx.graphics.getWidth())
-                ,new Random().nextInt(Gdx.graphics.getHeight()));
+                new Random().nextInt(Gdx.graphics.getWidth()-300)+300
+                ,new Random().nextInt(Gdx.graphics.getHeight()-100)+100);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
