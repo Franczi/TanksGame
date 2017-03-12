@@ -26,8 +26,8 @@ public class MenuScreen extends BaseScreen {
         spriteBatch.draw(startButton
                 , (Gdx.graphics.getWidth()/2)-200
                 , (Gdx.graphics.getHeight()/2)-200
-                , 400
-                , 400);
+                , 250
+                , 250);
 
         spriteBatch.end();
         handleInput();

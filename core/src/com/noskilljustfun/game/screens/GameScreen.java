@@ -2,6 +2,7 @@ package com.noskilljustfun.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.noskilljustfun.game.TanksGame;
+import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 
@@ -9,10 +10,13 @@ public class GameScreen extends BaseScreen {
 
     private GameController controller;
     private TankPlayer player;
+    private Block block;
     public GameScreen(TanksGame game) {
         super(game);
         player = new TankPlayer();
+        block = new Block();
         stage.addActor(player);
+        stage.addActor(block);
         controller = new GameController(spriteBatch);
     }
 

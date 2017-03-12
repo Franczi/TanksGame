@@ -1,5 +1,6 @@
 package com.noskilljustfun.game.gameObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,24 +31,34 @@ public class TankPlayer extends Image {
 
     public void moveUp() {
         this.setRotation(180);
-        position.y += velocity;
+        if ((int)(position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
+            position.y += velocity;
+        }
     }
 
 
     public void moveDown() {
-        position.y -= velocity;
+        if ((position.y - velocity) >= 0) {
+            position.y -= velocity;
+        }
         this.setRotation(0);
     }
 
 
     public void moveLeft() {
-        position.x -= velocity;
+        if ((position.x - velocity) >= 0) {
+            position.x -= velocity;
+        }
         setRotation(270);
 
     }
 
     public void moveRight() {
-        position.x += velocity;
+        if ((int)(position.x + getWidth() + velocity) <= Gdx.graphics.getWidth()) {
+            position.x += velocity;
+            Gdx.app.log("right","go go go!");
+            Gdx.app.log("right",String.valueOf(position.x)+" "+String.valueOf(Gdx.graphics.getWidth()));
+        }
         setRotation(90);
     }
 
