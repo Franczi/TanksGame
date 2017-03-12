@@ -34,15 +34,18 @@ public class TankPlayer extends Image {
     public void moveUp() {
         this.setRotation(180);
         if ((int)(position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
-
-            position.y += velocity;
+            if (!checkPlayerObjectCollision((int) (position.x), (int) position.y+ velocity)) {
+                position.y += velocity;
+            }
         }
     }
 
 
     public void moveDown() {
         if ((position.y - velocity) >= 0) {
-            position.y -= velocity;
+            if (!checkPlayerObjectCollision((int) (position.x), (int) (position.y - velocity))) {
+                position.y -= velocity;
+            }
         }
         this.setRotation(0);
     }
@@ -50,7 +53,9 @@ public class TankPlayer extends Image {
 
     public void moveLeft() {
         if ((position.x - velocity) >= 0) {
-            position.x -= velocity;
+            if (!checkPlayerObjectCollision((int) (position.x - velocity), (int) position.y)) {
+                position.x -= velocity;
+            }
         }
         setRotation(270);
 
@@ -58,7 +63,9 @@ public class TankPlayer extends Image {
 
     public void moveRight() {
         if ((int)(position.x + getWidth() + velocity) <= Gdx.graphics.getWidth()) {
-            position.x += velocity;
+            if (!checkPlayerObjectCollision((int) (position.x + velocity), (int) (position.y))) {
+                position.x += velocity;
+            }
         }
         setRotation(90);
 
@@ -73,7 +80,7 @@ public class TankPlayer extends Image {
         return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
     }
 
-    boolean checkforWorldObjecCollision(int x, int y){
+    boolean checkPlayerObjectCollision(int x, int y){
         return EnvironmentCollisionManager
                 .getInstance()
                 .checkForObjectCollision(
