@@ -18,6 +18,7 @@ public class GameScreen extends BaseScreen {
     private GameController controller;
     private TankPlayer player;
     private List<Block> gameBlocks;
+    private List<Bullet> bullets;
     private Bullet bullet;
     private float shotTime;
 
@@ -27,9 +28,11 @@ public class GameScreen extends BaseScreen {
 
         player = new TankPlayer();
         initGameBlocks();
+        initBullets();
         stage.addActor(player);
         controller = new GameController(spriteBatch);
     }
+
 
 
     @Override
@@ -39,7 +42,6 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-
 
         super.render(delta);
         stage.act();
@@ -118,5 +120,11 @@ public class GameScreen extends BaseScreen {
         bullet=new Bullet(player.getPosition(),player.getRotation());
         stage.addActor(bullet);
     }
+
+    private void initBullets() {
+        bullets= new LinkedList<Bullet>();
+        
+    }
+
 
 }

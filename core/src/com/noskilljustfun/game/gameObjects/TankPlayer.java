@@ -41,7 +41,6 @@ public class TankPlayer extends Image {
         }
     }
 
-
     public void moveDown() {
         if ((position.y - velocity) >= 0) {
             if (!checkPlayerObjectCollision((int) (position.x), (int) (position.y - velocity))) {

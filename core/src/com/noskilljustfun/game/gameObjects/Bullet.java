@@ -25,6 +25,14 @@ public class Bullet extends Image {
         initDirection((int)rotation);
     }
 
+    public Bullet() {
+        super(new Texture("gameObjects/bullet.png"));
+        velocity = 10;
+        position=new Vector2();
+        this.setOrigin(20.0f, 20.0f);
+        this.setSize(40.0f, 40.0f);
+    }
+
     void initDirection(int direction){
         switch (direction){
             case ObjectDirection.UP:
@@ -60,6 +68,11 @@ public class Bullet extends Image {
                 position.x-=velocity;
                 break;
         }
+        this.setPosition(position.x,position.y);
+    }
+
+    public void setBulletPosition(Vector2 positionVector){
+        position = positionVector;
         this.setPosition(position.x,position.y);
     }
 
