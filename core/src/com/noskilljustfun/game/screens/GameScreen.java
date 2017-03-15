@@ -1,7 +1,9 @@
 package com.noskilljustfun.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
+import com.noskilljustfun.game.gameObjects.Bullet;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
@@ -16,9 +18,11 @@ public class GameScreen extends BaseScreen {
     private GameController controller;
     private TankPlayer player;
     private List<Block> gameBlocks;
+    private Bullet bullet;
 
     public GameScreen(TanksGame game) {
         super(game);
+
         player = new TankPlayer();
         initGameBlocks();
         stage.addActor(player);
@@ -36,10 +40,13 @@ public class GameScreen extends BaseScreen {
         super.render(delta);
         stage.act();
         controller.draw();
-        handleInput();
+        //   playerEventsController.draw();
+        handleInput(delta);
 
         spriteBatch.begin();
         player.update();
+        if(bullet!=null)
+        bullet.update();
         stage.draw();
         spriteBatch.end();
     }
@@ -69,7 +76,7 @@ public class GameScreen extends BaseScreen {
         super.dispose();
     }
 
-    public void handleInput() {
+    public void handleInput(float dt) {
         if (controller.isUp()) {
             player.moveUp();
         } else if (controller.isDown()) {
@@ -78,7 +85,11 @@ public class GameScreen extends BaseScreen {
             player.moveRight();
         } else if (controller.isLeft()) {
             player.moveLeft();
-
+        } else if (controller.isShoot()) {
+            Gdx.app.log("shoot", "pif-paf");
+            initBullet();
+        } else if (controller.isBoost()) {
+            Gdx.app.log("boost", "tank is now boosted");
         }
     }
 
@@ -94,6 +105,11 @@ public class GameScreen extends BaseScreen {
                     .getWorldObjects()
                     .add(block.getBlockRectangle());
         }
+    }
+
+    private void initBullet(){
+        bullet=new Bullet(player.getPosition(),player.getRotation());
+        stage.addActor(bullet);
     }
 
 }

@@ -20,6 +20,7 @@ public class TankPlayer extends Image {
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
+
     }
 
 
@@ -85,5 +86,13 @@ public class TankPlayer extends Image {
                 .getInstance()
                 .checkForObjectCollision(
                         new Rectangle(x,y,getWidth(),getHeight()));
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 }

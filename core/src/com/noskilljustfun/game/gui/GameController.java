@@ -17,7 +17,7 @@ public class GameController {
 
     Viewport viewport;
     Stage stage;
-    boolean up, down, left, right; // in game screen we just checking state of button
+    boolean up, down, left, right, shoot, boost; // in game screen we just checking state of button
     OrthographicCamera camera;
 
     public GameController(SpriteBatch batch) {
@@ -27,8 +27,6 @@ public class GameController {
         Gdx.input.setInputProcessor(stage);
 
         initButtons();
-
-
     }
 
     private void initButtons() {
@@ -98,6 +96,40 @@ public class GameController {
             }
         });
 
+        final Image shootBtn = new Image(new Texture("buttons/a.png"));
+        shootBtn.setSize(120, 120);
+        shootBtn.setPosition(Gdx.graphics.getWidth()-300,100);
+        shootBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                shoot = true;
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                shoot = false;
+            }
+        });
+
+
+        final Image boostBtn = new Image(new Texture("buttons/b.png"));
+        boostBtn.setSize(120, 120);
+        boostBtn.setPosition(Gdx.graphics.getWidth()-200,200);
+        boostBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                shoot = true;
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                shoot = false;
+            }
+        });
+
+
 
         //Add buttons to table. We initialize table, we need 3x3.
         // Next Step is to push our images to *-cell (look below)
@@ -122,10 +154,9 @@ public class GameController {
         table.add();
         table.row();
 
-
-
         stage.addActor(table);
-
+        stage.addActor(shootBtn);
+        stage.addActor(boostBtn);
     }
 
     public void draw() {
@@ -166,5 +197,13 @@ public class GameController {
 
     public void setRight(boolean right) {
         this.right = right;
+    }
+
+    public boolean isShoot() {
+        return shoot;
+    }
+
+    public boolean isBoost() {
+        return boost;
     }
 }
