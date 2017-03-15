@@ -19,6 +19,8 @@ public class GameScreen extends BaseScreen {
     private TankPlayer player;
     private List<Block> gameBlocks;
     private Bullet bullet;
+    private float shotTime;
+
 
     public GameScreen(TanksGame game) {
         super(game);
@@ -37,18 +39,18 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
+
+
         super.render(delta);
         stage.act();
-        controller.draw();
-        //   playerEventsController.draw();
         handleInput(delta);
-
         spriteBatch.begin();
         player.update();
         if(bullet!=null)
         bullet.update();
         stage.draw();
         spriteBatch.end();
+        controller.draw();
     }
 
     @Override
@@ -77,6 +79,8 @@ public class GameScreen extends BaseScreen {
     }
 
     public void handleInput(float dt) {
+        shotTime += dt;
+
         if (controller.isUp()) {
             player.moveUp();
         } else if (controller.isDown()) {
@@ -86,8 +90,11 @@ public class GameScreen extends BaseScreen {
         } else if (controller.isLeft()) {
             player.moveLeft();
         } else if (controller.isShoot()) {
-            Gdx.app.log("shoot", "pif-paf");
-            initBullet();
+            if (shotTime > 1.0) {
+                Gdx.app.log("shoot", "pif-paf");
+                initBullet();
+                shotTime = 0.0f;
+            }
         } else if (controller.isBoost()) {
             Gdx.app.log("boost", "tank is now boosted");
         }
