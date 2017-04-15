@@ -1,6 +1,11 @@
 package com.noskilljustfun.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
@@ -21,16 +26,22 @@ public class GameScreen extends BaseScreen {
     private List<Bullet> bullets;
     private Bullet bullet;
     private float shotTime;
-
-
+    private TiledMap levelMap;
+    private TiledMapRenderer mapRenderer;
+    private OrthographicCamera camera;
     public GameScreen(TanksGame game) {
         super(game);
 
         player = new TankPlayer();
-        initGameBlocks();
+        //initGameBlocks();
         initBullets();
         stage.addActor(player);
         controller = new GameController(spriteBatch);
+        levelMap = new TmxMapLoader().load("maps/background2.tmx");
+        camera = new OrthographicCamera();
+
+
+        mapRenderer = new OrthogonalTiledMapRenderer(levelMap,2/1f);
     }
 
 
@@ -47,6 +58,11 @@ public class GameScreen extends BaseScreen {
         stage.act();
         handleInput(delta);
         spriteBatch.begin();
+        camera.setToOrtho(false,Gdx.graphics.getHeight()*2,Gdx.graphics.getWidth());
+
+        camera.update();
+        mapRenderer.setView(camera);
+        mapRenderer.render();
         player.update();
         if(bullet!=null)
         bullet.update();
@@ -94,7 +110,7 @@ public class GameScreen extends BaseScreen {
         } else if (controller.isShoot()) {
             if (shotTime > 1.0) {
                 Gdx.app.log("shoot", "pif-paf");
-                initBullet();
+                initBullets();
                 shotTime = 0.0f;
             }
         } else if (controller.isBoost()) {
@@ -109,6 +125,7 @@ public class GameScreen extends BaseScreen {
             block = new Block((i%4)+1);
             gameBlocks.add(block);
             stage.addActor(block);
+
             EnvironmentCollisionManager
                     .getInstance()
                     .getWorldObjects()
@@ -123,7 +140,9 @@ public class GameScreen extends BaseScreen {
 
     private void initBullets() {
         bullets= new LinkedList<Bullet>();
-        
+        for (int i = 0; i < 10; i++) {
+            bullets.add(new Bullet());
+        }
     }
 
 

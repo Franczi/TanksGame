@@ -76,6 +76,8 @@ public class Bullet extends Image {
         this.setPosition(position.x,position.y);
     }
 
-
-
+    @Override
+    public boolean remove() {
+        return super.remove();
+    }
 }

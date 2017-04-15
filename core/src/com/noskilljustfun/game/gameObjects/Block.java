@@ -59,5 +59,8 @@ public class Block extends Image{
         return new Rectangle(position.x,position.y,getWidth(),getHeight());
     }
 
-
+    @Override
+    public boolean remove() {
+        return super.remove();
+    }
 }
