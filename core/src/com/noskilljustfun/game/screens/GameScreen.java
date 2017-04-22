@@ -33,8 +33,8 @@ public class GameScreen extends BaseScreen {
 
         player = new TankPlayer();
         enemy1 = new TankEnemy();
-        enemy2 = new TankEnemy();
-        enemy3 = new TankEnemy();
+        enemy2 = new TankEnemy(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
+        enemy3 = new TankEnemy(Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
         initGameBlocks();
         initBullets();
         stage.addActor(player);

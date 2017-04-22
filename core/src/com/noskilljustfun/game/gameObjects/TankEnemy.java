@@ -28,6 +28,14 @@ public class TankEnemy extends Image {
         this.setPosition(position.x, position.y);
 
     }
+    public TankEnemy(float x, float y){
+        super(new Texture("oponentTank.png"));
+        velocity = 5;
+        position = new Vector2(x, y);
+        this.setOrigin(50.0f, 50.0f);
+        this.setSize(100.0f, 100.0f);
+        this.setPosition(position.x, position.y);
+    }
 
 
     public int getVelocity() {
