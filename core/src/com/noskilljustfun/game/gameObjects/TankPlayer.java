@@ -2,12 +2,15 @@ package com.noskilljustfun.game.gameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 
-public class TankPlayer extends Image {
+import sun.rmi.runtime.Log;
+
+public class TankPlayer extends Sprite {
 
     private Vector2 position;
     private int velocity;
@@ -16,7 +19,7 @@ public class TankPlayer extends Image {
     public TankPlayer() {
         super(new Texture("tank.png"));
         velocity = 5;
-        position = new Vector2(400, 400);
+        position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
@@ -34,7 +37,7 @@ public class TankPlayer extends Image {
 
     public void moveUp() {
         this.setRotation(180);
-        if ((int)(position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
+        if ((int)(position.y + getHeight() + velocity) <= Gdx.graphics.getHeight()) {
             if (!checkPlayerObjectCollision((int) (position.x), (int) position.y+ velocity)) {
                 position.y += velocity;
             }
@@ -73,6 +76,8 @@ public class TankPlayer extends Image {
 
     public void update() {
         this.setPosition(position.x, position.y);
+        //Gdx.app.log("pos X: ", String.valueOf(position.x));
+        //Gdx.app.log("pos Y: ", String.valueOf(position.y));
     }
 
     Rectangle getPlayerTankRectangle(Vector2 nextPosition){
@@ -80,7 +85,7 @@ public class TankPlayer extends Image {
         return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
     }
 
-    boolean checkPlayerObjectCollision(int x, int y){
+    public boolean checkPlayerObjectCollision(int x, int y){
         return EnvironmentCollisionManager
                 .getInstance()
                 .checkForObjectCollision(
