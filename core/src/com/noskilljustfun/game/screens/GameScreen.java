@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
+import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
@@ -18,6 +19,9 @@ public class GameScreen extends BaseScreen {
 
     private GameController controller;
     private TankPlayer player;
+    private TankEnemy enemy1;
+    private TankEnemy enemy2;
+    private TankEnemy enemy3;
     private List<Block> gameBlocks;
     private List<Bullet> bullets;
     private Bullet bullet;
@@ -28,9 +32,16 @@ public class GameScreen extends BaseScreen {
         super(game);
 
         player = new TankPlayer();
+        enemy1 = new TankEnemy();
+        enemy2 = new TankEnemy(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
+        enemy3 = new TankEnemy(Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
         initGameBlocks();
         initBullets();
         stage.addActor(player);
+        stage.addActor(enemy1);
+        stage.addActor(enemy2);
+        stage.addActor(enemy3);
+
         controller = new GameController(spriteBatch);
     }
 
@@ -49,6 +60,9 @@ public class GameScreen extends BaseScreen {
         handleInput(delta);
         spriteBatch.begin();
         player.update();
+        enemy1.update(delta);
+        enemy2.update(delta);
+        enemy3.update(delta);
         if(bullet!=null)
         bullet.update();
         stage.draw();
