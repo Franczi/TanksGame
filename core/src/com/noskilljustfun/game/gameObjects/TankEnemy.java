@@ -23,6 +23,7 @@ public class TankEnemy extends Image {
         super(new Texture("oponentTank.png"));
         velocity = 5;
         position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        setName(ObjectNames.ENEMY);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
@@ -30,6 +31,7 @@ public class TankEnemy extends Image {
     }
     public TankEnemy(float x, float y){
         super(new Texture("oponentTank.png"));
+        setName(ObjectNames.ENEMY);
         velocity = 5;
         position = new Vector2(x, y);
         this.setOrigin(50.0f, 50.0f);
@@ -112,9 +114,9 @@ public class TankEnemy extends Image {
         this.setPosition(position.x, position.y);
     }
 
-    Rectangle getPlayerTankRectangle(Vector2 nextPosition){
+    public Rectangle getEnemyTankRectangle(){
 
-        return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
+        return new Rectangle(position.x,position.y,getWidth(),getHeight());
     }
 
     public void randomMove(){
@@ -126,7 +128,7 @@ public class TankEnemy extends Image {
         return EnvironmentCollisionManager
                 .getInstance()
                 .checkForObjectCollision(
-                        new Rectangle(x,y,getWidth(),getHeight()));
+                        this);
     }
 
     public Vector2 getPosition() {

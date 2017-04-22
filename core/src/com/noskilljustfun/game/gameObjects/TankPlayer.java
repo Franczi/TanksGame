@@ -20,6 +20,7 @@ public class TankPlayer extends Image {
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
+        setName(ObjectNames.PLAYER);
 
     }
 
@@ -75,16 +76,15 @@ public class TankPlayer extends Image {
         this.setPosition(position.x, position.y);
     }
 
-    Rectangle getPlayerTankRectangle(Vector2 nextPosition){
+    public Rectangle getPlayerTankRectangle() {
 
-        return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
+        return new Rectangle(position.x, position.y, getWidth(), getHeight());
     }
 
     boolean checkPlayerObjectCollision(int x, int y){
         return EnvironmentCollisionManager
                 .getInstance()
-                .checkForObjectCollision(
-                        new Rectangle(x,y,getWidth(),getHeight()));
+                .checkForObjectCollision(this);
     }
 
     public Vector2 getPosition() {
