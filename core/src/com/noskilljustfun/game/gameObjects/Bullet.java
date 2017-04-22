@@ -10,6 +10,7 @@ public class Bullet extends Image {
     private int velocity;
     private Vector2 position;
     private float rotation;
+    private boolean isMoving = false;
 
 
     public Bullet(Vector2 startingPosition,float rotation) {
@@ -31,6 +32,19 @@ public class Bullet extends Image {
         position=new Vector2();
         this.setOrigin(20.0f, 20.0f);
         this.setSize(40.0f, 40.0f);
+
+    }
+
+    public void initBullet(Vector2 startingPosition, float rotation) {
+        this.rotation = rotation;
+        velocity = 10;
+        position = new Vector2();
+        position.x = startingPosition.x;
+        position.y = startingPosition.y;
+        this.setOrigin(20.0f, 20.0f);
+        this.setSize(40.0f, 40.0f);
+        this.setPosition(position.x, position.y);
+        initDirection((int) rotation);
     }
 
     void initDirection(int direction){
@@ -76,6 +90,11 @@ public class Bullet extends Image {
         this.setPosition(position.x,position.y);
     }
 
+    public boolean isMoving() {
+        return isMoving;
+    }
 
-
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
 }

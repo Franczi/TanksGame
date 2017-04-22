@@ -15,11 +15,13 @@ import java.util.List;
 public class GameScreen extends BaseScreen {
 
     private static final int BLOCKS_AMOUNT=11;
+    private static final int BULLETS_COUNT = 20;
 
     private GameController controller;
     private TankPlayer player;
     private List<Block> gameBlocks;
     private List<Bullet> bullets;
+    private int bulletCounter = 0;
     private Bullet bullet;
     private float shotTime;
 
@@ -30,6 +32,7 @@ public class GameScreen extends BaseScreen {
         player = new TankPlayer();
         initGameBlocks();
         initBullets();
+
         stage.addActor(player);
         controller = new GameController(spriteBatch);
     }
@@ -49,11 +52,19 @@ public class GameScreen extends BaseScreen {
         handleInput(delta);
         spriteBatch.begin();
         player.update();
-        if(bullet!=null)
-        bullet.update();
+
+        updateBullets();
         stage.draw();
         spriteBatch.end();
         controller.draw();
+    }
+
+    private void updateBullets() {
+        for (Bullet bullet :
+                bullets) {
+            bullet.update();
+        }
+
     }
 
     @Override
@@ -95,7 +106,7 @@ public class GameScreen extends BaseScreen {
         } else if (controller.isShoot()) {
             if (shotTime > 1.0) {
                 Gdx.app.log("shoot", "pif-paf");
-                initBullet();
+                shoot();
                 shotTime = 0.0f;
             }
         } else if (controller.isBoost()) {
@@ -146,9 +157,24 @@ public class GameScreen extends BaseScreen {
         stage.addActor(bullet);
     }
 
+    private void shoot() {
+        Bullet bullet;
+        bullet = bullets.get(bulletCounter);
+        bulletCounter++;
+        bullet.initBullet(player.getPosition(), player.getRotation());
+        stage.addActor(bullet);
+        if (bulletCounter >= BULLETS_COUNT + 1) {
+            bulletCounter = 0;
+        }
+    }
+
     private void initBullets() {
+        Bullet bullet;
         bullets= new LinkedList<Bullet>();
-        
+        for (int i = 0; i < BULLETS_COUNT; i++) {
+            bullet = new Bullet();
+            bullets.add(bullet);
+        }
     }
 
 
