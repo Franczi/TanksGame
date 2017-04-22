@@ -128,7 +128,7 @@ public class TankEnemy extends Image {
         return EnvironmentCollisionManager
                 .getInstance()
                 .checkForObjectCollision(
-                        this);
+                        this,x,y);
     }
 
     public Vector2 getPosition() {
