@@ -14,7 +14,7 @@ public class Block extends Image{
     public Block() {
         super();
         setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("gameObjects/block1.png"))));
-
+        setName(ObjectNames.BLOCK);
         position = new Vector2(500, 500);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
@@ -23,7 +23,7 @@ public class Block extends Image{
 
     public Block(int type){
         super();
-
+        setName(ObjectNames.BLOCK);
         switch (type){
             case BlockType.BLOCK_1:
                 setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("gameObjects/block1.png"))));

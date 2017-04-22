@@ -2,6 +2,7 @@ package com.noskilljustfun.game.gameObjects;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -24,6 +25,7 @@ public class Bullet extends Image {
         this.setSize(40.0f, 40.0f);
         this.setPosition(position.x, position.y);
         initDirection((int)rotation);
+        setName(ObjectNames.BULLET);
     }
 
     public Bullet() {
@@ -32,6 +34,7 @@ public class Bullet extends Image {
         position=new Vector2();
         this.setOrigin(20.0f, 20.0f);
         this.setSize(40.0f, 40.0f);
+        setName(ObjectNames.BULLET);
 
     }
 
@@ -39,8 +42,8 @@ public class Bullet extends Image {
         this.rotation = rotation;
         velocity = 10;
         position = new Vector2();
-        position.x = startingPosition.x;
-        position.y = startingPosition.y;
+        position.x = startingPosition.x+1;
+        position.y = startingPosition.y+101;
         this.setOrigin(20.0f, 20.0f);
         this.setSize(40.0f, 40.0f);
         this.setPosition(position.x, position.y);
@@ -83,6 +86,10 @@ public class Bullet extends Image {
                 break;
         }
         this.setPosition(position.x,position.y);
+    }
+
+    public Rectangle getBulletRectangle() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     public void setBulletPosition(Vector2 positionVector){

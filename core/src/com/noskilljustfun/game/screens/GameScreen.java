@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
+import com.noskilljustfun.game.gameObjects.ObjectNames;
 import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
@@ -41,12 +42,11 @@ public class GameScreen extends BaseScreen {
         enemy3 = new TankEnemy(Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
         initGameBlocks();
         initBullets();
-
+        EnvironmentCollisionManager.getInstance().setStage(stage);
         stage.addActor(player);
         stage.addActor(enemy1);
         stage.addActor(enemy2);
         stage.addActor(enemy3);
-
         controller = new GameController(spriteBatch);
     }
 
@@ -81,9 +81,10 @@ public class GameScreen extends BaseScreen {
         for (Bullet bullet :
                 bullets) {
             bullet.update();
+            EnvironmentCollisionManager.getInstance().checkForBulletCollision(bullet);
         }
-
     }
+
 
     @Override
     public void resize(int width, int height) {
@@ -122,7 +123,7 @@ public class GameScreen extends BaseScreen {
         } else if (controller.isLeft()) {
             player.moveLeft();
         } else if (controller.isShoot()) {
-            if (shotTime > 1.0) {
+            if (shotTime > 0.5) {
                 shoot();
                 shotTime = 0.0f;
             }

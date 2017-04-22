@@ -19,23 +19,25 @@ public class TankEnemy extends Image {
     private Random random = new Random();
     private float moveTime;
     private int moveCounter = 0;
-    private float shootCounter ;
+    private float shootCounter;
     private int courentMove = -1;
     private double bulletTime = 0.0d;
-
 
 
     public TankEnemy() {
         super(new Texture("oponentTank.png"));
         velocity = 5;
-        position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        position = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        setName(ObjectNames.ENEMY);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
 
     }
-    public TankEnemy(float x, float y){
+
+    public TankEnemy(float x, float y) {
         super(new Texture("oponentTank.png"));
+        setName(ObjectNames.ENEMY);
         velocity = 5;
         position = new Vector2(x, y);
         this.setOrigin(50.0f, 50.0f);
@@ -54,8 +56,8 @@ public class TankEnemy extends Image {
 
     public void moveUp() {
         this.setRotation(180);
-        if ((int)(position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
-            if (!checkPlayerObjectCollision((int) (position.x), (int) position.y+ velocity)) {
+        if ((int) (position.y + getImageHeight() + velocity) <= Gdx.graphics.getHeight()) {
+            if (!checkPlayerObjectCollision((int) (position.x), (int) position.y + velocity)) {
                 position.y += velocity;
             }
         }
@@ -82,7 +84,7 @@ public class TankEnemy extends Image {
     }
 
     public void moveRight() {
-        if ((int)(position.x + getWidth() + velocity) <= Gdx.graphics.getWidth()) {
+        if ((int) (position.x + getWidth() + velocity) <= Gdx.graphics.getWidth()) {
             if (!checkPlayerObjectCollision((int) (position.x + velocity), (int) (position.y))) {
                 position.x += velocity;
             }
@@ -102,23 +104,23 @@ public class TankEnemy extends Image {
                 moveCounter = 0;
             }
         }
-        if (courentMove == 0){
+        if (courentMove == 0) {
             moveUp();
             moveCounter++;
-        }else if (courentMove == 1){
+        } else if (courentMove == 1) {
             moveDown();
             moveCounter++;
-        }else if (courentMove == 2){
+        } else if (courentMove == 2) {
             moveRight();
             moveCounter++;
-        }else if (courentMove == 3){
+        } else if (courentMove == 3) {
             moveLeft();
             moveCounter++;
         }
         this.setPosition(position.x, position.y);
     }
 
-    public void enemyShoot(float delta, Stage stage, List<Bullet> bullets){
+    public void enemyShoot(float delta, Stage stage, List<Bullet> bullets) {
         shootCounter += delta;
         bulletTime = 1 + (5 - 1) * random.nextDouble();
         if (shootCounter > bulletTime) {
@@ -128,7 +130,7 @@ public class TankEnemy extends Image {
             bullet.initBullet(this.getPosition(), this.getRotation());
             stage.addActor(bullet);
 
-            if ( GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
+            if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
                 GameScreen.bulletCounter = 0;
             }
             shootCounter = 0.0f;
@@ -137,10 +139,9 @@ public class TankEnemy extends Image {
     }
 
 
+    public Rectangle getEnemyTankRectangle() {
 
-    Rectangle getPlayerTankRectangle(Vector2 nextPosition){
-
-        return new Rectangle(nextPosition.x,nextPosition.y,getWidth(),getHeight());
+        return new Rectangle(position.x, position.y, getWidth(), getHeight());
     }
 
     public void randomMove(){
@@ -152,7 +153,7 @@ public class TankEnemy extends Image {
         return EnvironmentCollisionManager
                 .getInstance()
                 .checkForObjectCollision(
-                        new Rectangle(x,y,getWidth(),getHeight()));
+                        this);
     }
 
     public Vector2 getPosition() {
