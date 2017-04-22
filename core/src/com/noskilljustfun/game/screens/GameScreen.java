@@ -1,6 +1,7 @@
 package com.noskilljustfun.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class GameScreen extends BaseScreen {
 
-    private static final int BLOCKS_AMOUNT=8;
+    private static final int BLOCKS_AMOUNT=11;
 
     private GameController controller;
     private TankPlayer player;
@@ -106,7 +107,8 @@ public class GameScreen extends BaseScreen {
         gameBlocks = new LinkedList<Block>();
         Block block;
         for(int i =0; i<BLOCKS_AMOUNT;i++){
-            block = new Block((i%4)+1);
+            block = new Block(3);
+            block.setPosition(new Vector2(300,100*i));
             gameBlocks.add(block);
             stage.addActor(block);
             EnvironmentCollisionManager
@@ -114,6 +116,29 @@ public class GameScreen extends BaseScreen {
                     .getWorldObjects()
                     .add(block.getBlockRectangle());
         }
+        for(int i =0; i<BLOCKS_AMOUNT;i++){
+            block = new Block(3);
+            block.setPosition(new Vector2(1400,100*i));
+            gameBlocks.add(block);
+            stage.addActor(block);
+            EnvironmentCollisionManager
+                    .getInstance()
+                    .getWorldObjects()
+                    .add(block.getBlockRectangle());
+        }
+
+        for(int i =0; i<BLOCKS_AMOUNT-1;i++){
+            block = new Block(2);
+            block.setPosition(new Vector2(400+(i*100),800));
+            gameBlocks.add(block);
+            stage.addActor(block);
+            EnvironmentCollisionManager
+                    .getInstance()
+                    .getWorldObjects()
+                    .add(block.getBlockRectangle());
+        }
+
+
     }
 
     private void initBullet(){
