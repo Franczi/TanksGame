@@ -7,10 +7,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 
+import java.util.Random;
+
 public class TankEnemy extends Image {
 
     private Vector2 position;
     private int velocity;
+    private Random random = new Random();
+    private float moveTime;
+    private int moveCounter = 0;
+    private int courentMove = -1;
 
 
     public TankEnemy() {
@@ -71,7 +77,30 @@ public class TankEnemy extends Image {
 
     }
 
-    public void update() {
+    public void update(float delta) {
+        moveTime += delta;
+
+
+        if (moveTime > 0.2) {
+            if (moveCounter >= 20 || moveCounter == 0) {
+                moveTime = 0.0f;
+                courentMove = random.nextInt(4);
+                moveCounter = 0;
+            }
+        }
+        if (courentMove == 0){
+            moveUp();
+            moveCounter++;
+        }else if (courentMove == 1){
+            moveDown();
+            moveCounter++;
+        }else if (courentMove == 2){
+            moveRight();
+            moveCounter++;
+        }else if (courentMove == 3){
+            moveLeft();
+            moveCounter++;
+        }
         this.setPosition(position.x, position.y);
     }
 
