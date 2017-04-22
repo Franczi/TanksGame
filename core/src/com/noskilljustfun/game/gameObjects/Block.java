@@ -1,15 +1,12 @@
 package com.noskilljustfun.game.gameObjects;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
-import java.util.Random;
 
 public class Block extends Image{
     private Vector2 position;
@@ -45,13 +42,13 @@ public class Block extends Image{
                 break;
         }
 
-
-        position = new Vector2(
-                new Random().nextInt(Gdx.graphics.getWidth()-300)+300
-                ,new Random().nextInt(Gdx.graphics.getHeight()-100)+100);
+//
+//        position = new Vector2(
+//                new Random().nextInt(Gdx.graphics.getWidth()-300)+300
+//                ,new Random().nextInt(Gdx.graphics.getHeight()-100)+100);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
-        this.setPosition(position.x, position.y);
+//        this.setPosition(position.x, position.y);
 
     }
 
@@ -59,5 +56,12 @@ public class Block extends Image{
         return new Rectangle(position.x,position.y,getWidth(),getHeight());
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+        setPosition(position.x, position.y);
+    }
 }
