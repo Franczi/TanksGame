@@ -105,7 +105,6 @@ public class GameScreen extends BaseScreen {
             player.moveLeft();
         } else if (controller.isShoot()) {
             if (shotTime > 1.0) {
-                Gdx.app.log("shoot", "pif-paf");
                 shoot();
                 shotTime = 0.0f;
             }
@@ -163,7 +162,8 @@ public class GameScreen extends BaseScreen {
         bulletCounter++;
         bullet.initBullet(player.getPosition(), player.getRotation());
         stage.addActor(bullet);
-        if (bulletCounter >= BULLETS_COUNT + 1) {
+       
+        if (bulletCounter >= BULLETS_COUNT - 1) {
             bulletCounter = 0;
         }
     }
