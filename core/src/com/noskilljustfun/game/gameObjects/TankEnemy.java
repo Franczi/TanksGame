@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
+import com.noskilljustfun.game.screens.GameScreen;
 
+import java.util.List;
 import java.util.Random;
 
 public class TankEnemy extends Image {
@@ -16,7 +19,10 @@ public class TankEnemy extends Image {
     private Random random = new Random();
     private float moveTime;
     private int moveCounter = 0;
+    private float shootCounter ;
     private int courentMove = -1;
+    private double bulletTime = 0.0d;
+
 
 
     public TankEnemy() {
@@ -111,6 +117,26 @@ public class TankEnemy extends Image {
         }
         this.setPosition(position.x, position.y);
     }
+
+    public void enemyShoot(float delta, Stage stage, List<Bullet> bullets){
+        shootCounter += delta;
+        bulletTime = 1 + (5 - 1) * random.nextDouble();
+        if (shootCounter > bulletTime) {
+            Bullet bullet;
+            bullet = bullets.get(GameScreen.bulletCounter);
+            GameScreen.bulletCounter++;
+            bullet.initBullet(this.getPosition(), this.getRotation());
+            stage.addActor(bullet);
+
+            if ( GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
+                GameScreen.bulletCounter = 0;
+            }
+            shootCounter = 0.0f;
+            bulletTime = 0.0f;
+        }
+    }
+
+
 
     Rectangle getPlayerTankRectangle(Vector2 nextPosition){
 
