@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
+import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
@@ -17,6 +18,7 @@ public class GameScreen extends BaseScreen {
 
     private GameController controller;
     private TankPlayer player;
+    private TankEnemy enemy;
     private List<Block> gameBlocks;
     private List<Bullet> bullets;
     private Bullet bullet;
@@ -27,9 +29,11 @@ public class GameScreen extends BaseScreen {
         super(game);
 
         player = new TankPlayer();
+        enemy = new TankEnemy();
         initGameBlocks();
         initBullets();
         stage.addActor(player);
+        stage.addActor(enemy);
         controller = new GameController(spriteBatch);
     }
 
@@ -48,6 +52,7 @@ public class GameScreen extends BaseScreen {
         handleInput(delta);
         spriteBatch.begin();
         player.update();
+        enemy.update();
         if(bullet!=null)
         bullet.update();
         stage.draw();
