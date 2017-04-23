@@ -11,6 +11,7 @@ import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
+import com.noskilljustfun.game.utils.LevelGenerator;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -69,8 +69,8 @@ public class EnvironmentCollisionManager {
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
 
-            if (collision && bullet.isWhoShoot()) {
-                if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(ObjectNames.BULLET)) {
+            if (collision) {
+                if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW))
                     actor.remove();
                     if (actor.getName().equals(ObjectNames.ENEMY))
                         ((TankEnemy) actor).setCanShoot(false);
@@ -78,8 +78,6 @@ public class EnvironmentCollisionManager {
             }
 
         }
-
-    }
 
 
     public List<Rectangle> getWorldObjects() {

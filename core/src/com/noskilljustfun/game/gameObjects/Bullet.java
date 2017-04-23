@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Bullet extends Image {
 
+    private static int bulletId = 0;
+
     private int velocity;
     private Vector2 position;
     private float rotation;
@@ -24,6 +26,7 @@ public class Bullet extends Image {
 
     public Bullet(Vector2 startingPosition, float rotation) {
         super(new Texture("gameObjects/bullet.png"));
+        bulletId++;
         this.rotation=rotation;
         velocity = 10;
         position= new Vector2();
@@ -33,16 +36,17 @@ public class Bullet extends Image {
         this.setSize(40.0f, 40.0f);
         this.setPosition(position.x, position.y);
         initDirection((int)rotation);
-        setName(ObjectNames.BULLET);
+        setName(ObjectNames.BULLET + String.valueOf(bulletId));
     }
 
     public Bullet() {
         super(new Texture("gameObjects/bullet.png"));
+        bulletId++;
         velocity = 10;
         position=new Vector2();
         this.setOrigin(20.0f, 20.0f);
         this.setSize(40.0f, 40.0f);
-        setName(ObjectNames.BULLET);
+        setName(ObjectNames.BULLET + String.valueOf(bulletId));
 
     }
 
