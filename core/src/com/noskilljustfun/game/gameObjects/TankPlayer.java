@@ -42,6 +42,7 @@ public class TankPlayer extends Image {
         this.setPosition(position.x, position.y);
         setX(position.x);
         setY(position.y);
+        canShoot=true;
 
 }
 

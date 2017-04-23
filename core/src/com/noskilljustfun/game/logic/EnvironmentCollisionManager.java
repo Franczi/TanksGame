@@ -86,7 +86,11 @@ public class EnvironmentCollisionManager {
                         && !actor.getName().equals(ObjectNames.BLOCK_RED)
                         && !actor.getName().equals(ObjectNames.BLOCK_METAL)
                         && !actor.getName().equals(ObjectNames.ENEMY)) {
+
                     actor.remove();
+                    if (actor.getName().contains(ObjectNames.BULLET)) {
+                        ((Bullet) actor).setMoving(false);
+                    }
                 }
 
                 if(!actor.getName().equals(bullet.getName()) ) {
@@ -100,11 +104,15 @@ public class EnvironmentCollisionManager {
                     if (!bullet.isShotByEnemy()) {
                         actor.remove();
                         ((TankEnemy) actor).setCanShoot(false);
+
                     }
                 }
                 if (actor.getName().equals(ObjectNames.PLAYER)) {
                     ((TankPlayer) actor).setCanShoot(false);
                     // TODO: 23.04.2017 bw end game or decrement life points
+                    ((TankPlayer) actor).respawn();
+                    stage.addActor(actor);
+
                 }
 
 

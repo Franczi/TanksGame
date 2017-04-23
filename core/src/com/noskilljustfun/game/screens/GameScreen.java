@@ -1,5 +1,6 @@
 package com.noskilljustfun.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
@@ -122,16 +123,15 @@ public class GameScreen extends BaseScreen {
             player.moveRight();
         } else if (controller.isLeft()) {
             player.moveLeft();
-        } else if (controller.isShoot()) {
+        }
+
+        if (controller.isShoot()) {
             if (shotTime > 0.5) {
-                if(player.isCanShoot()) {
+                if (player.isCanShoot()) {
                     shoot();
                 }
                 shotTime = 0.0f;
             }
-        } else if (controller.isBoost()) {
-            player.respawn();
-            stage.addActor(player);
         }
     }
 
