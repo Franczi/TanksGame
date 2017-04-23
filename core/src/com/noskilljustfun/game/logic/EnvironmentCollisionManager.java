@@ -70,9 +70,20 @@ public class EnvironmentCollisionManager {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
 
             if (collision) {
-                if (!actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)) {
+                if (!actor.getName().equals(bullet.getName())
+                        && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)
+                        && !actor.getName().equals(ObjectNames.BLOCK_RED)
+                        && !actor.getName().equals(ObjectNames.BLOCK_METAL)) {
                     actor.remove();
                 }
+
+                if(!actor.getName().equals(bullet.getName()) ) {
+                    if (stage.getRoot().findActor(bullet.getName()) != null) {
+                        stage.getRoot().findActor(bullet.getName()).remove();
+                    }
+                }
+
+
                     if (actor.getName().equals(ObjectNames.ENEMY)) {
                         ((TankEnemy) actor).setCanShoot(false);
                     }
