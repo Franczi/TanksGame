@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
@@ -139,15 +138,15 @@ public class GameScreen extends BaseScreen {
             player.moveRight();
         } else if (controller.isLeft()) {
             player.moveLeft();
-        } else if (controller.isShoot()) {
+        }
+
+        if (controller.isShoot()) {
             if (shotTime > 0.5) {
-                if(player.isCanShoot()) {
+                if (player.isCanShoot()) {
                     shoot();
                 }
                 shotTime = 0.0f;
             }
-        } else if (controller.isBoost()) {
-            Gdx.app.log("boost", "tank is now boosted");
         }
     }
 
