@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GameScreen extends BaseScreen {
 
-    private static final int BLOCKS_AMOUNT=11;
+    public static final int BLOCKS_AMOUNT = 11;
     public static final int BULLETS_COUNT = 20;
     public static int bulletCounter = 0;
 
@@ -38,11 +38,13 @@ public class GameScreen extends BaseScreen {
         super(game);
 
         player = new TankPlayer();
-        enemy1 = new TankEnemy(410,900);
-        enemy2 = new TankEnemy(850, 900);
+        enemy1 = new TankEnemy(850,900);
+        enemy2 = new TankEnemy(410, 900);
         enemy3 = new TankEnemy(1290,900);
-        initGameBlocks();
+      // initGameBlocks();
         initBullets();
+        LevelGenerator.getInstance().setStage(stage);
+        LevelGenerator.getInstance().initLevelOne();
         EnvironmentCollisionManager.getInstance().setStage(stage);
         stage.addActor(player);
         stage.addActor(enemy1);

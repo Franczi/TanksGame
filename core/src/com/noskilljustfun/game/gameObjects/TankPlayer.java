@@ -17,7 +17,7 @@ public class TankPlayer extends Image {
     public TankPlayer() {
         super(new Texture("tank.png"));
         velocity = 5;
-        position = new Vector2(Gdx.graphics.getWidth()/2,0);
+        position = new Vector2(850,0);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
