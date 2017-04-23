@@ -19,6 +19,8 @@ public class EnvironmentCollisionManager {
     List<Bullet> bullets;
     List<Block> blocks;
     Stage stage;
+    public int score = 0;
+    public int life = 3;
 
     private static EnvironmentCollisionManager ourInstance = new EnvironmentCollisionManager();
 
@@ -34,13 +36,13 @@ public class EnvironmentCollisionManager {
 
     //this class must be initialized on game start
     //Singleton can provide us same instance att any place in app
-    void init(List<Rectangle> worldObjects){
-        this.worldObjects=worldObjects;
+    void init(List<Rectangle> worldObjects) {
+        this.worldObjects = worldObjects;
     }
 
     public boolean checkForObjectCollision(TankPlayer object, int nextX, int nextY) {
         Rectangle rectangle = object.getPlayerTankRectangle();
-        rectangle.setPosition(nextX,nextY);
+        rectangle.setPosition(nextX, nextY);
         for (Actor worldObjects : stage.getActors()) {
             boolean collision = new Rectangle(worldObjects.getX(), worldObjects.getY(), worldObjects.getWidth(), worldObjects.getHeight()).overlaps(rectangle);
             if (collision) {
@@ -53,7 +55,7 @@ public class EnvironmentCollisionManager {
 
     public boolean checkForObjectCollision(TankEnemy object, int nextX, int nextY) {
         Rectangle rectangle = object.getEnemyTankRectangle();
-        rectangle.setPosition(nextX,nextY);
+        rectangle.setPosition(nextX, nextY);
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(rectangle);
             if (actor.getName().equals(ObjectNames.ENEMY)) {
@@ -93,7 +95,7 @@ public class EnvironmentCollisionManager {
                     }
                 }
 
-                if(!actor.getName().equals(bullet.getName()) ) {
+                if (!actor.getName().equals(bullet.getName())) {
                     if (stage.getRoot().findActor(bullet.getName()) != null) {
                         stage.getRoot().findActor(bullet.getName()).remove();
                         bullet.setMoving(false);
@@ -103,23 +105,25 @@ public class EnvironmentCollisionManager {
                 if (actor.getName().equals(ObjectNames.ENEMY)) {
                     if (!bullet.isShotByEnemy()) {
                         actor.remove();
+                        score += 10;
                         ((TankEnemy) actor).setCanShoot(false);
 
                     }
                 }
                 if (actor.getName().equals(ObjectNames.PLAYER)) {
                     ((TankPlayer) actor).setCanShoot(false);
-                    // TODO: 23.04.2017 bw end game or decrement life points
-                    ((TankPlayer) actor).respawn();
-                    stage.addActor(actor);
-
+                    life--;
+                    if (life > 0) {
+                        ((TankPlayer) actor).respawn();
+                        stage.addActor(actor);
+                    }
                 }
 
 
-                }
             }
-
         }
+
+    }
 
 
     public List<Rectangle> getWorldObjects() {
