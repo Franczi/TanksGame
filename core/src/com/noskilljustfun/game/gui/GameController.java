@@ -31,18 +31,15 @@ public class GameController {
 
     private void initButtons() {
 
-        //=== initialize table====
-        Table table = new Table();
-        table.left().bottom();
-
-
         //==== initialize buttons(texture, size), add on click events====
-        Image upBtn = new Image(new Texture("buttons/up.png"));
-        upBtn.setSize(120, 120);
+        final Image upBtn = new Image(new Texture("buttons/up.png"));
+        upBtn.setSize(170, 170);
+        upBtn.setPosition(130,260);
         upBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 up = true;
+                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -53,11 +50,13 @@ public class GameController {
         });
 
         Image leftBtn = new Image(new Texture("buttons/left.png"));
-        leftBtn.setSize(120, 120);
+        leftBtn.setSize(170, 170);
+        leftBtn.setPosition(5,130);
         leftBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 left = true;
+                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -68,11 +67,13 @@ public class GameController {
         });
 
         final Image rightBtn = new Image(new Texture("buttons/right.png"));
-        rightBtn.setSize(120, 120);
+        rightBtn.setSize(170, 170);
+        rightBtn.setPosition(260,130);
         rightBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 right = true;
+                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -82,11 +83,13 @@ public class GameController {
             }
         });
         final Image downBtn = new Image(new Texture("buttons/down.png"));
-        downBtn.setSize(120, 120);
+        downBtn.setSize(170, 170);
+        downBtn.setPosition(135,0);
         downBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 down = true;
+                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -97,12 +100,13 @@ public class GameController {
         });
 
         final Image shootBtn = new Image(new Texture("buttons/a.png"));
-        shootBtn.setSize(120, 120);
-        shootBtn.setPosition(Gdx.graphics.getWidth()-300,100);
+        shootBtn.setSize(170, 170);
+        shootBtn.setPosition(Gdx.graphics.getWidth()-220,140);
         shootBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 shoot = true;
+                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -112,51 +116,11 @@ public class GameController {
             }
         });
 
-
-        final Image boostBtn = new Image(new Texture("buttons/b.png"));
-        boostBtn.setSize(120, 120);
-        boostBtn.setPosition(Gdx.graphics.getWidth()-200,200);
-        boostBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                shoot = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                shoot = false;
-            }
-        });
-
-
-
-        //Add buttons to table. We initialize table, we need 3x3.
-        // Next Step is to push our images to *-cell (look below)
-        // Effect presented below.
-        // [ ][*][ ]
-        // [*][ ][*]
-        // [ ][*][ ]
-
-        //first row
-        table.add();
-        table.add(upBtn).size(upBtn.getWidth(), upBtn.getHeight());
-        table.add();
-        table.row();
-        //secoand row
-        table.add(leftBtn).size(leftBtn.getWidth(), leftBtn.getHeight());
-        table.add();
-        table.add(rightBtn).size(rightBtn.getWidth(), rightBtn.getHeight());
-        table.row();
-        //last row
-        table.add();
-        table.add(downBtn).size(downBtn.getWidth(), downBtn.getHeight());
-        table.add();
-        table.row();
-
-        stage.addActor(table);
+        stage.addActor(upBtn);
+        stage.addActor(downBtn);
+        stage.addActor(rightBtn);
+        stage.addActor(leftBtn);
         stage.addActor(shootBtn);
-        stage.addActor(boostBtn);
     }
 
     public void draw() {
