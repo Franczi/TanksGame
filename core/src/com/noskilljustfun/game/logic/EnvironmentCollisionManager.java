@@ -56,30 +56,57 @@ public class EnvironmentCollisionManager {
         rectangle.setPosition(nextX,nextY);
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(rectangle);
+            if (actor.getName().equals(ObjectNames.ENEMY)) {
+                if (((TankEnemy) actor).getId() != object.getId()) {
+                    if (collision) {
+                        return true;
+                    }
+                }
+            }
             if (collision) {
-                if (!actor.getName().equals(object.getName()))
+                if (!actor.getName().equals(object.getName())) {
                     return true;
+                }
             }
         }
         return false;
     }
 
     public void checkForBulletCollision(Bullet bullet) {
+
+        if (!bullet.isMoving()) return;
+
         Rectangle bulletRect = bullet.getBulletRectangle();
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
 
             if (collision) {
-                if (!actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)) {
+                if (!actor.getName().equals(bullet.getName())
+                        && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)
+                        && !actor.getName().equals(ObjectNames.BLOCK_RED)
+                        && !actor.getName().equals(ObjectNames.BLOCK_METAL)
+                        && !actor.getName().equals(ObjectNames.ENEMY)) {
                     actor.remove();
                 }
-                    if (actor.getName().equals(ObjectNames.ENEMY)) {
+
+                if(!actor.getName().equals(bullet.getName()) ) {
+                    if (stage.getRoot().findActor(bullet.getName()) != null) {
+                        stage.getRoot().findActor(bullet.getName()).remove();
+                        bullet.setMoving(false);
+                    }
+                }
+
+                if (actor.getName().equals(ObjectNames.ENEMY)) {
+                    if (!bullet.isShotByEnemy()) {
+                        actor.remove();
                         ((TankEnemy) actor).setCanShoot(false);
                     }
-                    if(actor.getName().equals(ObjectNames.PLAYER)){
-                        ((TankPlayer)actor).setCanShoot(false);
-                        // TODO: 23.04.2017 bw end game or decrement life points
-                    }
+                }
+                if (actor.getName().equals(ObjectNames.PLAYER)) {
+                    ((TankPlayer) actor).setCanShoot(false);
+                    // TODO: 23.04.2017 bw end game or decrement life points
+                }
+
 
                 }
             }

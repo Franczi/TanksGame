@@ -38,9 +38,9 @@ public class GameScreen extends BaseScreen {
         super(game);
 
         player = new TankPlayer();
-        enemy1 = new TankEnemy();
-        enemy2 = new TankEnemy(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
-        enemy3 = new TankEnemy(Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
+        enemy1 = new TankEnemy(410,900);
+        enemy2 = new TankEnemy(850, 900);
+        enemy3 = new TankEnemy(1290,900);
         initGameBlocks();
         initBullets();
         EnvironmentCollisionManager.getInstance().setStage(stage);
@@ -181,6 +181,8 @@ public class GameScreen extends BaseScreen {
     private void shoot() {
         Bullet bullet;
         bullet = bullets.get(bulletCounter);
+        bullet.setShotByEnemy(false);
+        bullet.setMoving(true);
         bulletCounter++;
         bullet.initBullet(player.getPosition(), player.getRotation());
         stage.addActor(bullet);
