@@ -70,10 +70,17 @@ public class EnvironmentCollisionManager {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
 
             if (collision) {
-                if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW))
+                if (!actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)) {
                     actor.remove();
-                    if (actor.getName().equals(ObjectNames.ENEMY))
+                }
+                    if (actor.getName().equals(ObjectNames.ENEMY)) {
                         ((TankEnemy) actor).setCanShoot(false);
+                    }
+                    if(actor.getName().equals(ObjectNames.PLAYER)){
+                        ((TankPlayer)actor).setCanShoot(false);
+                        // TODO: 23.04.2017 bw end game or decrement life points
+                    }
+
                 }
             }
 

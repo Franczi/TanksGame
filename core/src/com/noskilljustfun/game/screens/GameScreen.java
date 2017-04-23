@@ -125,7 +125,9 @@ public class GameScreen extends BaseScreen {
             player.moveLeft();
         } else if (controller.isShoot()) {
             if (shotTime > 0.5) {
-                shoot();
+                if(player.isCanShoot()) {
+                    shoot();
+                }
                 shotTime = 0.0f;
             }
         } else if (controller.isBoost()) {
