@@ -1,12 +1,9 @@
 package com.noskilljustfun.game.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
-import com.noskilljustfun.game.gameObjects.ObjectNames;
 import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
@@ -133,7 +130,8 @@ public class GameScreen extends BaseScreen {
                 shotTime = 0.0f;
             }
         } else if (controller.isBoost()) {
-            Gdx.app.log("boost", "tank is now boosted");
+            player.respawn();
+            stage.addActor(player);
         }
     }
 

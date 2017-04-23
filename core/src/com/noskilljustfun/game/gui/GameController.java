@@ -119,13 +119,13 @@ public class GameController {
         boostBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                shoot = true;
+                boost = true;
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                shoot = false;
+                boost = false;
             }
         });
 

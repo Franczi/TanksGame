@@ -20,6 +20,7 @@ public class TankPlayer extends Image {
         position = new Vector2(850,0);
         this.setOrigin(50.0f, 50.0f);
         this.setSize(100.0f, 100.0f);
+        setRotation(180);
         this.setPosition(position.x, position.y);
         setName(ObjectNames.PLAYER);
         canShoot=true;
@@ -34,6 +35,15 @@ public class TankPlayer extends Image {
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
+
+    public void respawn(){
+        position = new Vector2(850,0);
+        setRotation(180);
+        this.setPosition(position.x, position.y);
+        setX(position.x);
+        setY(position.y);
+
+}
 
     public void moveUp() {
         this.setRotation(180);
