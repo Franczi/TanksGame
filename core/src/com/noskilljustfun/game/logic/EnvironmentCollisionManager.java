@@ -70,12 +70,10 @@ public class EnvironmentCollisionManager {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
 
             if (collision) {
-                if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(ObjectNames.BULLET))
+                if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW))
                     actor.remove();
             }
-
         }
-
     }
 
 
