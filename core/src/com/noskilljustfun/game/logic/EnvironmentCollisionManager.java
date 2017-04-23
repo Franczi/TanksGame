@@ -72,9 +72,12 @@ public class EnvironmentCollisionManager {
             if (collision) {
                 if (!actor.getName().equals(ObjectNames.PLAYER) && !actor.getName().equals(bullet.getName()) && !actor.getName().equals(ObjectNames.BLOCK_YELLOW))
                     actor.remove();
+                    if (actor.getName().equals(ObjectNames.ENEMY))
+                        ((TankEnemy) actor).setCanShoot(false);
+                }
             }
+
         }
-    }
 
 
     public List<Rectangle> getWorldObjects() {
