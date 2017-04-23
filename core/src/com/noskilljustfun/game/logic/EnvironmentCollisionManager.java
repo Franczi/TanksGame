@@ -56,15 +56,26 @@ public class EnvironmentCollisionManager {
         rectangle.setPosition(nextX,nextY);
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(rectangle);
+            if (actor.getName().equals(ObjectNames.ENEMY)) {
+                if (((TankEnemy) actor).getId() != object.getId()) {
+                    if (collision) {
+                        return true;
+                    }
+                }
+            }
             if (collision) {
-                if (!actor.getName().equals(object.getName()))
+                if (!actor.getName().equals(object.getName())) {
                     return true;
+                }
             }
         }
         return false;
     }
 
     public void checkForBulletCollision(Bullet bullet) {
+
+        if (!bullet.isMoving()) return;
+
         Rectangle bulletRect = bullet.getBulletRectangle();
         for (Actor actor : stage.getActors()) {
             boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(bulletRect);
@@ -81,6 +92,7 @@ public class EnvironmentCollisionManager {
                 if(!actor.getName().equals(bullet.getName()) ) {
                     if (stage.getRoot().findActor(bullet.getName()) != null) {
                         stage.getRoot().findActor(bullet.getName()).remove();
+                        bullet.setMoving(false);
                     }
                 }
 
