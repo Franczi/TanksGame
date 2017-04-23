@@ -19,6 +19,8 @@ public class EnvironmentCollisionManager {
     List<Bullet> bullets;
     List<Block> blocks;
     Stage stage;
+    public int score = 0;
+    public int life = 3;
 
     private static EnvironmentCollisionManager ourInstance = new EnvironmentCollisionManager();
 
@@ -99,12 +101,13 @@ public class EnvironmentCollisionManager {
                 if (actor.getName().equals(ObjectNames.ENEMY)) {
                     if (!bullet.isShotByEnemy()) {
                         actor.remove();
+                        score += 10;
                         ((TankEnemy) actor).setCanShoot(false);
                     }
                 }
                 if (actor.getName().equals(ObjectNames.PLAYER)) {
                     ((TankPlayer) actor).setCanShoot(false);
-                    // TODO: 23.04.2017 bw end game or decrement life points
+                        life--;
                 }
 
 

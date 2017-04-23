@@ -1,8 +1,12 @@
 package com.noskilljustfun.game.screens;
 
 import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
@@ -12,6 +16,8 @@ import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 import com.noskilljustfun.game.utils.LevelGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +35,12 @@ public class GameScreen extends BaseScreen {
     private TankEnemy enemy3;
     private List<Block> gameBlocks;
     private List<Bullet> bullets;
+    private Label scoreLabel;
+    private Label playerLifeLabel;
 
     private Bullet bullet;
     private float shotTime;
+
 
 
     public GameScreen(TanksGame game) {
@@ -43,6 +52,8 @@ public class GameScreen extends BaseScreen {
         enemy3 = new TankEnemy(1290,900);
       // initGameBlocks();
         initBullets();
+        initPlayerLifeLabel();
+        initScoreLabel();
         LevelGenerator.getInstance().setStage(stage);
         LevelGenerator.getInstance().initLevelOne();
         EnvironmentCollisionManager.getInstance().setStage(stage);
@@ -66,6 +77,8 @@ public class GameScreen extends BaseScreen {
         super.render(delta);
         stage.act();
         handleInput(delta);
+        updateScoreLabel();
+        updatePlayerLifeLabel();
         spriteBatch.begin();
         player.update();
         enemy1.update(delta);
@@ -74,6 +87,7 @@ public class GameScreen extends BaseScreen {
         enemy1.enemyShoot(delta,this.stage,this.bullets);
         enemy2.enemyShoot(delta,this.stage,this.bullets);
         enemy3.enemyShoot(delta,this.stage,this.bullets);
+
         updateBullets();
         stage.draw();
         spriteBatch.end();
@@ -137,43 +151,36 @@ public class GameScreen extends BaseScreen {
         }
     }
 
-    private void initGameBlocks(){
-        gameBlocks = new LinkedList<Block>();
-        Block block;
-        for(int i =0; i<BLOCKS_AMOUNT;i++){
-            block = new Block(3);
-            block.setPosition(new Vector2(300,100*i));
-            gameBlocks.add(block);
-            stage.addActor(block);
-            EnvironmentCollisionManager
-                    .getInstance()
-                    .getWorldObjects()
-                    .add(block.getBlockRectangle());
-        }
-        for(int i =0; i<BLOCKS_AMOUNT;i++){
-            block = new Block(3);
-            block.setPosition(new Vector2(1400,100*i));
-            gameBlocks.add(block);
-            stage.addActor(block);
-            EnvironmentCollisionManager
-                    .getInstance()
-                    .getWorldObjects()
-                    .add(block.getBlockRectangle());
-        }
 
-        for(int i =0; i<BLOCKS_AMOUNT-1;i++){
-            block = new Block(2);
-            block.setPosition(new Vector2(400+(i*100),800));
-            gameBlocks.add(block);
-            stage.addActor(block);
-            EnvironmentCollisionManager
-                    .getInstance()
-                    .getWorldObjects()
-                    .add(block.getBlockRectangle());
-        }
+    private void initScoreLabel() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+
+        labelStyle.fontColor = Color.BLACK;
+        scoreLabel = new Label("", labelStyle);
+        scoreLabel.setX(20);
+        scoreLabel.setY(950);
+        scoreLabel.setFontScale(3);
 
 
+        stage.addActor(scoreLabel);
+        scoreLabel.setName("ScoreLabel");
     }
+    private void initPlayerLifeLabel() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+
+        labelStyle.fontColor = Color.BLACK;
+        playerLifeLabel = new Label("", labelStyle);
+        playerLifeLabel.setX(1510);
+        playerLifeLabel.setY(950);
+        playerLifeLabel.setFontScale(3);
+
+
+        stage.addActor(playerLifeLabel);
+        playerLifeLabel.setName("PlayerLiveLabel");
+    }
+
 
     private void initBullet(){
         bullet=new Bullet(player.getPosition(),player.getRotation());
@@ -202,6 +209,17 @@ public class GameScreen extends BaseScreen {
             bullet = new Bullet();
             bullets.add(bullet);
         }
+    }
+
+    private void updateScoreLabel(){
+
+        scoreLabel.setText("Score: " + EnvironmentCollisionManager.getInstance().score );
+        stage.act();
+    }
+    private void updatePlayerLifeLabel(){
+
+        playerLifeLabel.setText("Life: " + EnvironmentCollisionManager.getInstance().life );
+        stage.act();
     }
 
 
