@@ -2,6 +2,7 @@ package com.noskilljustfun.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
@@ -17,7 +18,8 @@ import java.util.List;
 public class GameScreen extends BaseScreen {
 
     private static final int BLOCKS_AMOUNT=11;
-    private static final int BULLETS_COUNT = 20;
+    public static final int BULLETS_COUNT = 20;
+    public static int bulletCounter = 0;
 
     private GameController controller;
     private TankPlayer player;
@@ -26,7 +28,7 @@ public class GameScreen extends BaseScreen {
     private TankEnemy enemy3;
     private List<Block> gameBlocks;
     private List<Bullet> bullets;
-    private int bulletCounter = 0;
+
     private Bullet bullet;
     private float shotTime;
 
@@ -66,7 +68,9 @@ public class GameScreen extends BaseScreen {
         enemy1.update(delta);
         enemy2.update(delta);
         enemy3.update(delta);
-
+        enemy1.enemyShoot(delta,this.stage,this.bullets);
+        enemy2.enemyShoot(delta,this.stage,this.bullets);
+        enemy3.enemyShoot(delta,this.stage,this.bullets);
         updateBullets();
         stage.draw();
         spriteBatch.end();
@@ -182,6 +186,7 @@ public class GameScreen extends BaseScreen {
             bulletCounter = 0;
         }
     }
+
 
     private void initBullets() {
         Bullet bullet;
