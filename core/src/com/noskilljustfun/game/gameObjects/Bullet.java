@@ -14,14 +14,14 @@ public class Bullet extends Image {
     private Vector2 position;
     private float rotation;
     private boolean isMoving = false;
-    private boolean whoShoot = false;
+    private boolean shotByEnemy = false;
 
-    public boolean isWhoShoot() {
-        return whoShoot;
+    public boolean isShotByEnemy() {
+        return shotByEnemy;
     }
 
-    public void setWhoShoot(boolean whoShoot) {
-        this.whoShoot = whoShoot;
+    public void setShotByEnemy(boolean shotByEnemy) {
+        this.shotByEnemy = shotByEnemy;
     }
 
     public Bullet(Vector2 startingPosition, float rotation) {

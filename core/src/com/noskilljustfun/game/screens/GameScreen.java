@@ -181,6 +181,7 @@ public class GameScreen extends BaseScreen {
     private void shoot() {
         Bullet bullet;
         bullet = bullets.get(bulletCounter);
+        bullet.setShotByEnemy(false);
         bulletCounter++;
         bullet.initBullet(player.getPosition(), player.getRotation());
         stage.addActor(bullet);

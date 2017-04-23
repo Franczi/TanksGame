@@ -20,7 +20,7 @@ public class TankEnemy extends Image {
     private float moveTime;
     private int moveCounter = 0;
     private float shootCounter;
-    private int courentMove = -1;
+    private int counterMove = -1;
     private double bulletTime = 0.0d;
     private boolean canShoot = true;
 
@@ -108,20 +108,20 @@ public class TankEnemy extends Image {
         if (moveTime > 0.2) {
             if (moveCounter >= 20 || moveCounter == 0) {
                 moveTime = 0.0f;
-                courentMove = random.nextInt(4);
+                counterMove = random.nextInt(4);
                 moveCounter = 0;
             }
         }
-        if (courentMove == 0) {
+        if (counterMove == 0) {
             moveUp();
             moveCounter++;
-        } else if (courentMove == 1) {
+        } else if (counterMove == 1) {
             moveDown();
             moveCounter++;
-        } else if (courentMove == 2) {
+        } else if (counterMove == 2) {
             moveRight();
             moveCounter++;
-        } else if (courentMove == 3) {
+        } else if (counterMove == 3) {
             moveLeft();
             moveCounter++;
         }
@@ -135,6 +135,7 @@ public class TankEnemy extends Image {
             if (shootCounter > bulletTime) {
                 Bullet bullet;
                 bullet = bullets.get(GameScreen.bulletCounter);
+                bullet.setShotByEnemy(true);
                 GameScreen.bulletCounter++;
                 bullet.initBullet(this.getPosition(), this.getRotation());
                 stage.addActor(bullet);

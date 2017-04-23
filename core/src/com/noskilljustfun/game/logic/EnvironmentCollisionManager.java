@@ -73,7 +73,8 @@ public class EnvironmentCollisionManager {
                 if (!actor.getName().equals(bullet.getName())
                         && !actor.getName().equals(ObjectNames.BLOCK_YELLOW)
                         && !actor.getName().equals(ObjectNames.BLOCK_RED)
-                        && !actor.getName().equals(ObjectNames.BLOCK_METAL)) {
+                        && !actor.getName().equals(ObjectNames.BLOCK_METAL)
+                        && !actor.getName().equals(ObjectNames.ENEMY)) {
                     actor.remove();
                 }
 
@@ -83,14 +84,17 @@ public class EnvironmentCollisionManager {
                     }
                 }
 
-
-                    if (actor.getName().equals(ObjectNames.ENEMY)) {
+                if (actor.getName().equals(ObjectNames.ENEMY)) {
+                    if (!bullet.isShotByEnemy()) {
+                        actor.remove();
                         ((TankEnemy) actor).setCanShoot(false);
                     }
-                    if(actor.getName().equals(ObjectNames.PLAYER)){
-                        ((TankPlayer)actor).setCanShoot(false);
-                        // TODO: 23.04.2017 bw end game or decrement life points
-                    }
+                }
+                if (actor.getName().equals(ObjectNames.PLAYER)) {
+                    ((TankPlayer) actor).setCanShoot(false);
+                    // TODO: 23.04.2017 bw end game or decrement life points
+                }
+
 
                 }
             }
