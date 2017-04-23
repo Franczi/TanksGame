@@ -38,9 +38,11 @@ public class EnvironmentCollisionManager {
         this.worldObjects=worldObjects;
     }
 
-    public boolean checkForObjectCollision(TankPlayer object) {
+    public boolean checkForObjectCollision(TankPlayer object, int nextX, int nextY) {
+        Rectangle rectangle = object.getPlayerTankRectangle();
+        rectangle.setPosition(nextX,nextY);
         for (Actor worldObjects : stage.getActors()) {
-            boolean collision = new Rectangle(worldObjects.getX(), worldObjects.getY(), worldObjects.getWidth(), worldObjects.getHeight()).overlaps(object.getPlayerTankRectangle());
+            boolean collision = new Rectangle(worldObjects.getX(), worldObjects.getY(), worldObjects.getWidth(), worldObjects.getHeight()).overlaps(rectangle);
             if (collision) {
                 if (!worldObjects.getName().equals(object.getName()))
                     return true;
@@ -49,9 +51,11 @@ public class EnvironmentCollisionManager {
         return false;
     }
 
-    public boolean checkForObjectCollision(TankEnemy object) {
+    public boolean checkForObjectCollision(TankEnemy object, int nextX, int nextY) {
+        Rectangle rectangle = object.getEnemyTankRectangle();
+        rectangle.setPosition(nextX,nextY);
         for (Actor actor : stage.getActors()) {
-            boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(object.getEnemyTankRectangle());
+            boolean collision = new Rectangle(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight()).overlaps(rectangle);
             if (collision) {
                 if (!actor.getName().equals(object.getName()))
                     return true;

@@ -84,7 +84,7 @@ public class TankPlayer extends Image {
     boolean checkPlayerObjectCollision(int x, int y){
         return EnvironmentCollisionManager
                 .getInstance()
-                .checkForObjectCollision(this);
+                .checkForObjectCollision(this, x , y);
     }
 
     public Vector2 getPosition() {
