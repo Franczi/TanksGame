@@ -71,9 +71,9 @@ public class GameScreen extends BaseScreen {
         enemy1.update(delta);
         enemy2.update(delta);
         enemy3.update(delta);
-       /* enemy1.enemyShoot(delta,this.stage,this.bullets);
+        enemy1.enemyShoot(delta,this.stage,this.bullets);
         enemy2.enemyShoot(delta,this.stage,this.bullets);
-        enemy3.enemyShoot(delta,this.stage,this.bullets);*/
+        enemy3.enemyShoot(delta,this.stage,this.bullets);
         updateBullets();
         stage.draw();
         spriteBatch.end();
@@ -127,7 +127,9 @@ public class GameScreen extends BaseScreen {
             player.moveLeft();
         } else if (controller.isShoot()) {
             if (shotTime > 0.5) {
-                shoot();
+                if(player.isCanShoot()) {
+                    shoot();
+                }
                 shotTime = 0.0f;
             }
         } else if (controller.isBoost()) {
@@ -181,6 +183,8 @@ public class GameScreen extends BaseScreen {
     private void shoot() {
         Bullet bullet;
         bullet = bullets.get(bulletCounter);
+        bullet.setShotByEnemy(false);
+        bullet.setMoving(true);
         bulletCounter++;
         bullet.initBullet(player.getPosition(), player.getRotation());
         stage.addActor(bullet);

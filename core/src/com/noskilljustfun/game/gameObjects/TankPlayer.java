@@ -11,6 +11,7 @@ public class TankPlayer extends Image {
 
     private Vector2 position;
     private int velocity;
+    private boolean canShoot;
 
 
     public TankPlayer() {
@@ -21,6 +22,7 @@ public class TankPlayer extends Image {
         this.setSize(100.0f, 100.0f);
         this.setPosition(position.x, position.y);
         setName(ObjectNames.PLAYER);
+        canShoot=true;
 
     }
 
@@ -93,5 +95,13 @@ public class TankPlayer extends Image {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    public boolean isCanShoot() {
+        return canShoot;
+    }
+
+    public void setCanShoot(boolean canShoot) {
+        this.canShoot = canShoot;
     }
 }

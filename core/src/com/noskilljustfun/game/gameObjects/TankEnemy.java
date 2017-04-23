@@ -14,15 +14,19 @@ import java.util.Random;
 
 public class TankEnemy extends Image {
 
+    private static int enemyIdUpdater = 0;
+
+    private int id;
     private Vector2 position;
     private int velocity;
     private Random random = new Random();
     private float moveTime;
     private int moveCounter = 0;
     private float shootCounter;
-    private int courentMove = -1;
+    private int counterMove = -1;
     private double bulletTime = 0.0d;
     private boolean canShoot = true;
+
 
     public boolean isCanShoot() {
         return canShoot;
@@ -34,6 +38,7 @@ public class TankEnemy extends Image {
 
     public TankEnemy() {
         super(new Texture("oponentTank.png"));
+        id = enemyIdUpdater++;
         velocity = 5;
         position = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         setName(ObjectNames.ENEMY);
@@ -45,6 +50,7 @@ public class TankEnemy extends Image {
 
     public TankEnemy(float x, float y) {
         super(new Texture("oponentTank.png"));
+        id = enemyIdUpdater++;
         setName(ObjectNames.ENEMY);
         velocity = 5;
         position = new Vector2(x, y);
@@ -108,20 +114,20 @@ public class TankEnemy extends Image {
         if (moveTime > 0.2) {
             if (moveCounter >= 20 || moveCounter == 0) {
                 moveTime = 0.0f;
-                courentMove = random.nextInt(4);
+                counterMove = random.nextInt(4);
                 moveCounter = 0;
             }
         }
-        if (courentMove == 0) {
+        if (counterMove == 0) {
             moveUp();
             moveCounter++;
-        } else if (courentMove == 1) {
+        } else if (counterMove == 1) {
             moveDown();
             moveCounter++;
-        } else if (courentMove == 2) {
+        } else if (counterMove == 2) {
             moveRight();
             moveCounter++;
-        } else if (courentMove == 3) {
+        } else if (counterMove == 3) {
             moveLeft();
             moveCounter++;
         }
@@ -135,6 +141,8 @@ public class TankEnemy extends Image {
             if (shootCounter > bulletTime) {
                 Bullet bullet;
                 bullet = bullets.get(GameScreen.bulletCounter);
+                bullet.setShotByEnemy(true);
+                bullet.setMoving(true);
                 GameScreen.bulletCounter++;
                 bullet.initBullet(this.getPosition(), this.getRotation());
                 stage.addActor(bullet);
@@ -172,5 +180,13 @@ public class TankEnemy extends Image {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -14,14 +14,14 @@ public class Bullet extends Image {
     private Vector2 position;
     private float rotation;
     private boolean isMoving = false;
-    private boolean whoShoot = false;
+    private boolean shotByEnemy = false;
 
-    public boolean isWhoShoot() {
-        return whoShoot;
+    public boolean isShotByEnemy() {
+        return shotByEnemy;
     }
 
-    public void setWhoShoot(boolean whoShoot) {
-        this.whoShoot = whoShoot;
+    public void setShotByEnemy(boolean shotByEnemy) {
+        this.shotByEnemy = shotByEnemy;
     }
 
     public Bullet(Vector2 startingPosition, float rotation) {
@@ -54,12 +54,38 @@ public class Bullet extends Image {
         this.rotation = rotation;
         velocity = 10;
         position = new Vector2();
-        position.x = startingPosition.x+1;
-        position.y = startingPosition.y+101;
+        initPositionWithRotation(startingPosition, rotation);
+
         this.setOrigin(20.0f, 20.0f);
         this.setSize(40.0f, 40.0f);
         this.setPosition(position.x, position.y);
-        initDirection((int) rotation);
+        // initDirection((int) rotation);
+    }
+
+    private void initPositionWithRotation(Vector2 startingPosition, float rotation) {
+
+        switch ((int) rotation) {
+            case ObjectDirection.UP:
+                this.setRotation(90);
+                position.x = startingPosition.x + 25;
+                position.y = startingPosition.y + 102;
+                break;
+            case ObjectDirection.DOWN:
+                position.x = startingPosition.x + 25;
+                position.y = startingPosition.y - 30;
+                this.setRotation(270);
+                break;
+            case ObjectDirection.RIGHT:
+                this.setRotation(0);
+                position.x = startingPosition.x + 102;
+                position.y = startingPosition.y + 25;
+                break;
+            case ObjectDirection.LEFT:
+                this.setRotation(180);
+                position.x = startingPosition.x - 30;
+                position.y = startingPosition.y + 25;
+                break;
+        }
     }
 
     void initDirection(int direction){
