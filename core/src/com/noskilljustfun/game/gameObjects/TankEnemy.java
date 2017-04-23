@@ -22,7 +22,15 @@ public class TankEnemy extends Image {
     private float shootCounter;
     private int courentMove = -1;
     private double bulletTime = 0.0d;
+    private boolean canShoot = true;
 
+    public boolean isCanShoot() {
+        return canShoot;
+    }
+
+    public void setCanShoot(boolean canShoot) {
+        this.canShoot = canShoot;
+    }
 
     public TankEnemy() {
         super(new Texture("oponentTank.png"));
@@ -123,18 +131,20 @@ public class TankEnemy extends Image {
     public void enemyShoot(float delta, Stage stage, List<Bullet> bullets) {
         shootCounter += delta;
         bulletTime = 1 + (5 - 1) * random.nextDouble();
-        if (shootCounter > bulletTime) {
-            Bullet bullet;
-            bullet = bullets.get(GameScreen.bulletCounter);
-            GameScreen.bulletCounter++;
-            bullet.initBullet(this.getPosition(), this.getRotation());
-            stage.addActor(bullet);
+        if (canShoot) {
+            if (shootCounter > bulletTime) {
+                Bullet bullet;
+                bullet = bullets.get(GameScreen.bulletCounter);
+                GameScreen.bulletCounter++;
+                bullet.initBullet(this.getPosition(), this.getRotation());
+                stage.addActor(bullet);
 
-            if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
-                GameScreen.bulletCounter = 0;
+                if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
+                    GameScreen.bulletCounter = 0;
+                }
+                shootCounter = 0.0f;
+                bulletTime = 0.0f;
             }
-            shootCounter = 0.0f;
-            bulletTime = 0.0f;
         }
     }
 

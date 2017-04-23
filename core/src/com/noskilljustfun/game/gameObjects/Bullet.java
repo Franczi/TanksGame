@@ -12,9 +12,17 @@ public class Bullet extends Image {
     private Vector2 position;
     private float rotation;
     private boolean isMoving = false;
+    private boolean whoShoot = false;
 
+    public boolean isWhoShoot() {
+        return whoShoot;
+    }
 
-    public Bullet(Vector2 startingPosition,float rotation) {
+    public void setWhoShoot(boolean whoShoot) {
+        this.whoShoot = whoShoot;
+    }
+
+    public Bullet(Vector2 startingPosition, float rotation) {
         super(new Texture("gameObjects/bullet.png"));
         this.rotation=rotation;
         velocity = 10;
