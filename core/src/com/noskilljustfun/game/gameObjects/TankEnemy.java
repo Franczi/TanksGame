@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.noskilljustfun.game.logic.EnemyAI;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 import com.noskilljustfun.game.screens.GameScreen;
 
@@ -15,7 +16,6 @@ import java.util.Random;
 public class TankEnemy extends Image {
 
     private static int enemyIdUpdater = 0;
-
     private int id;
     private Vector2 position;
     private int velocity;
@@ -26,6 +26,7 @@ public class TankEnemy extends Image {
     private int counterMove = -1;
     private double bulletTime = 0.0d;
     private boolean canShoot = true;
+    private boolean shouldShoot = false;
 
 
     public boolean isCanShoot() {
@@ -150,23 +151,24 @@ public class TankEnemy extends Image {
         bulletTime = 1 + (5 - 1) * random.nextDouble();
         if (canShoot) {
             if (shootCounter > bulletTime) {
-                Bullet bullet;
-                bullet = bullets.get(GameScreen.bulletCounter);
-                bullet.setShotByEnemy(true);
-                bullet.setMoving(true);
-                GameScreen.bulletCounter++;
-                bullet.initBullet(this.getPosition(), this.getRotation());
-                stage.addActor(bullet);
+                if (EnemyAI.getInstance().shouldShoot(this)) {
+                    Bullet bullet;
+                    bullet = bullets.get(GameScreen.bulletCounter);
+                    bullet.setShotByEnemy(true);
+                    bullet.setMoving(true);
+                    GameScreen.bulletCounter++;
+                    bullet.initBullet(this.getPosition(), this.getRotation());
+                    stage.addActor(bullet);
 
-                if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
-                    GameScreen.bulletCounter = 0;
+                    if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
+                        GameScreen.bulletCounter = 0;
+                    }
+                    shootCounter = 0.0f;
+                    bulletTime = 0.0f;
                 }
-                shootCounter = 0.0f;
-                bulletTime = 0.0f;
             }
         }
     }
-
 
     public Rectangle getEnemyTankRectangle() {
 
@@ -199,5 +201,13 @@ public class TankEnemy extends Image {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isShouldShoot() {
+        return shouldShoot;
+    }
+
+    public void setShouldShoot(boolean shouldShoot) {
+        this.shouldShoot = shouldShoot;
     }
 }

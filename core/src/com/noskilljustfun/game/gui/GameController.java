@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -39,7 +38,6 @@ public class GameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 up = true;
-                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -56,7 +54,6 @@ public class GameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 left = true;
-                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -73,7 +70,6 @@ public class GameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 right = true;
-                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -89,7 +85,6 @@ public class GameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 down = true;
-                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 
@@ -106,7 +101,6 @@ public class GameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 shoot = true;
-                Gdx.app.log("pointer amount:", String.valueOf(pointer));
                 return true;
             }
 

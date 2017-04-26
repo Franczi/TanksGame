@@ -1,22 +1,17 @@
 package com.noskilljustfun.game.screens;
 
-import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
-import com.noskilljustfun.game.gameObjects.ObjectNames;
 import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
+import com.noskilljustfun.game.logic.EnemyAI;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 import com.noskilljustfun.game.utils.LevelGenerator;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +44,6 @@ public class GameScreen extends BaseScreen {
         enemy1 = new TankEnemy(850,900);
         enemy2 = new TankEnemy(410, 900);
         enemy3 = new TankEnemy(1290,900);
-      // initGameBlocks();
         initBullets();
         initPlayerLifeLabel();
         initScoreLabel();
@@ -63,6 +57,7 @@ public class GameScreen extends BaseScreen {
         controller = new GameController(spriteBatch);
         EnvironmentCollisionManager.getInstance().life = 3;
         EnvironmentCollisionManager.getInstance().score = 0;
+        EnemyAI.getInstance().init(stage);
     }
 
 
