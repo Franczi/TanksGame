@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.noskilljustfun.game.logic.EnemyAI;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 import com.noskilljustfun.game.screens.GameScreen;
 
@@ -26,6 +27,7 @@ public class TankEnemy extends Image {
     private int counterMove = -1;
     private double bulletTime = 0.0d;
     private boolean canShoot = true;
+    private boolean shouldShoot = false;
 
 
     public boolean isCanShoot() {
@@ -149,6 +151,7 @@ public class TankEnemy extends Image {
         shootCounter += delta;
         bulletTime = 1 + (5 - 1) * random.nextDouble();
         if (canShoot) {
+            EnemyAI.getInstance().shouldShoot(this);
             if (shootCounter > bulletTime) {
                 Bullet bullet;
                 bullet = bullets.get(GameScreen.bulletCounter);
@@ -166,7 +169,6 @@ public class TankEnemy extends Image {
             }
         }
     }
-
 
     public Rectangle getEnemyTankRectangle() {
 
@@ -199,5 +201,13 @@ public class TankEnemy extends Image {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isShouldShoot() {
+        return shouldShoot;
+    }
+
+    public void setShouldShoot(boolean shouldShoot) {
+        this.shouldShoot = shouldShoot;
     }
 }

@@ -1,7 +1,7 @@
 package com.noskilljustfun.game.gameObjects;
 
 
-interface ObjectDirection {
+public interface ObjectDirection {
 
     int UP = 180;
     int DOWN = 0;
