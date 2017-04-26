@@ -1,6 +1,8 @@
 package com.noskilljustfun.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.noskilljustfun.game.TanksGame;
@@ -32,6 +34,7 @@ public class GameScreen extends BaseScreen {
     private Label scoreLabel;
     private Label playerLifeLabel;
     private Label ammoLabel;
+    private Texture background;
 
     private Bullet bullet;
     private float shotTime;
@@ -45,6 +48,7 @@ public class GameScreen extends BaseScreen {
         enemy1 = new TankEnemy(850,900);
         enemy2 = new TankEnemy(410, 900);
         enemy3 = new TankEnemy(1290,900);
+        background = new Texture("background1.jpg");
         initBullets();
         initPlayerLifeLabel();
         initScoreLabel();
@@ -74,12 +78,19 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
 
         super.render(delta);
+
+        spriteBatch.begin();
+        stage.getBatch().begin();
+        stage.getBatch().draw(background, 370, 0, (float) 1100, (float) Gdx.graphics.getHeight());
+        stage.getBatch().end();
+
         stage.act();
         handleInput(delta);
         updateScoreLabel();
         updatePlayerLifeLabel();
         updateAmmoLabel();
-        spriteBatch.begin();
+
+
         player.update();
         enemy1.update(delta);
         enemy2.update(delta);
@@ -97,6 +108,8 @@ public class GameScreen extends BaseScreen {
 
         stage.draw();
         spriteBatch.end();
+
+
         controller.draw();
     }
 
