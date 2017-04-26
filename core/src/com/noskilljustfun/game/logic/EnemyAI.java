@@ -35,58 +35,38 @@ public class EnemyAI {
 
     public boolean shouldShoot(TankEnemy enemy) {
 
-        Vector2 centerPointOfEnemy = new Vector2(enemy.getX() / 2, enemy.getY() / 2);
-
-        List<Vector2> interactionsObject = new ArrayList<Vector2>();
-
+        Vector2 centerPointOfEnemy = new Vector2(enemy.getX() + (enemy.getWidth() / 2), enemy.getY() + (enemy.getHeight() / 2));
+        List<Actor> interactionsObject = new ArrayList<Actor>();
 
         switch ((int) enemy.getRotation()) {
             case ObjectDirection.UP:
-                Gdx.app.log("UP", "look UP");
                 for (Actor actor : stage.getActors()) {
-
-                    if (actor.getName().contains(ObjectNames.BLOCK_WOOD) || actor.getName().contains(ObjectNames.PLAYER)) {
-                        if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y > actor.getY()) {
-                            //shoot
-                            //interactionsObject.add(new Vector2(actor.getX(),actor.getY()));
+                    if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y < actor.getY()) {
+                        interactionsObject.add(actor);
                         }
-                    }
                 }
                 break;
             case ObjectDirection.DOWN:
-                Gdx.app.log("DOWN", "look DOWN");
                 for (Actor actor : stage.getActors()) {
-
-                    if (actor.getName().contains(ObjectNames.BLOCK_WOOD) || actor.getName().contains(ObjectNames.PLAYER)) {
-                        if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y > actor.getY()) {
-                            //shoot
-                            //interactionsObject.add(new Vector2(actor.getX(),actor.getY()));
+                    if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y > actor.getY()) {
+                        interactionsObject.add(actor);
                         }
-                    }
                 }
                 break;
             case ObjectDirection.LEFT:
-                Gdx.app.log("LEFT", "look LEFT");
                 for (Actor actor : stage.getActors()) {
-
-                    if (actor.getName().contains(ObjectNames.BLOCK_WOOD) || actor.getName().contains(ObjectNames.PLAYER)) {
-                        if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y > actor.getY()) {
-                            //shoot
-                            //interactionsObject.add(new Vector2(actor.getX(),actor.getY()));
+                    if (centerPointOfEnemy.y > actor.getY() && centerPointOfEnemy.y < actor.getY() + actor.getHeight() && centerPointOfEnemy.x > actor.getX()) {
+                        interactionsObject.add(actor);
                         }
-                    }
+
                 }
                 break;
             case ObjectDirection.RIGHT:
-                Gdx.app.log("RIGHT", "look RIGHT");
                 for (Actor actor : stage.getActors()) {
-
-                    if (actor.getName().contains(ObjectNames.BLOCK_WOOD) || actor.getName().contains(ObjectNames.PLAYER)) {
-                        if (centerPointOfEnemy.x > actor.getX() && centerPointOfEnemy.x < actor.getX() + actor.getWidth() && centerPointOfEnemy.y > actor.getY()) {
-                            //shoot
-                            //interactionsObject.add(new Vector2(actor.getX(),actor.getY()));
+                    if (centerPointOfEnemy.y > actor.getY() && centerPointOfEnemy.y < actor.getY() + actor.getHeight() && centerPointOfEnemy.x < actor.getX()) {
+                        interactionsObject.add(actor);
                         }
-                    }
+
                 }
                 break;
             default:
@@ -95,8 +75,16 @@ public class EnemyAI {
 
         }
 
-
-        return true;
+        Gdx.app.log("Tank " + String.valueOf(enemy.getId()) + " size", String.valueOf(interactionsObject.size()));
+        for (Actor actor :
+                interactionsObject) {
+            if (actor.getName().equals(ObjectNames.PLAYER) || actor.getName().equals(ObjectNames.BLOCK_WOOD)) {
+                return true;
+            }
+        }
+        Gdx.app.log("Tank " + String.valueOf(enemy.getId()) + " size", "nothing");
+        interactionsObject.clear();
+        return false;
     }
 
 

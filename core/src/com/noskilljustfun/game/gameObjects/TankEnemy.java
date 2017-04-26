@@ -16,7 +16,6 @@ import java.util.Random;
 public class TankEnemy extends Image {
 
     private static int enemyIdUpdater = 0;
-
     private int id;
     private Vector2 position;
     private int velocity;
@@ -151,21 +150,22 @@ public class TankEnemy extends Image {
         shootCounter += delta;
         bulletTime = 1 + (5 - 1) * random.nextDouble();
         if (canShoot) {
-            EnemyAI.getInstance().shouldShoot(this);
             if (shootCounter > bulletTime) {
-                Bullet bullet;
-                bullet = bullets.get(GameScreen.bulletCounter);
-                bullet.setShotByEnemy(true);
-                bullet.setMoving(true);
-                GameScreen.bulletCounter++;
-                bullet.initBullet(this.getPosition(), this.getRotation());
-                stage.addActor(bullet);
+                if (EnemyAI.getInstance().shouldShoot(this)) {
+                    Bullet bullet;
+                    bullet = bullets.get(GameScreen.bulletCounter);
+                    bullet.setShotByEnemy(true);
+                    bullet.setMoving(true);
+                    GameScreen.bulletCounter++;
+                    bullet.initBullet(this.getPosition(), this.getRotation());
+                    stage.addActor(bullet);
 
-                if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
-                    GameScreen.bulletCounter = 0;
+                    if (GameScreen.bulletCounter > GameScreen.BULLETS_COUNT - 1) {
+                        GameScreen.bulletCounter = 0;
+                    }
+                    shootCounter = 0.0f;
+                    bulletTime = 0.0f;
                 }
-                shootCounter = 0.0f;
-                bulletTime = 0.0f;
             }
         }
     }

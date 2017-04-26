@@ -44,7 +44,6 @@ public class GameScreen extends BaseScreen {
         enemy1 = new TankEnemy(850,900);
         enemy2 = new TankEnemy(410, 900);
         enemy3 = new TankEnemy(1290,900);
-      // initGameBlocks();
         initBullets();
         initPlayerLifeLabel();
         initScoreLabel();
