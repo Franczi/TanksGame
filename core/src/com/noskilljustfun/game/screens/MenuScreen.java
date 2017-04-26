@@ -8,11 +8,18 @@ import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 public class MenuScreen extends BaseScreen {
 
     private Texture startButton;
+    private Texture background;
+    private Texture logo;
+    private Texture tank;
 
 
     public MenuScreen(TanksGame game) {
         super(game);
         startButton = new Texture("buttons/start.png");
+        background = new Texture("background3.png");
+        logo = new Texture("logo1.png");
+        tank = new Texture("tank.png");
+
         EnvironmentCollisionManager.getInstance().life = 3;
         EnvironmentCollisionManager.getInstance().score = 0;
     }
@@ -26,11 +33,24 @@ public class MenuScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         spriteBatch.begin();
+        spriteBatch.draw(background
+                , 0
+                , 0
+                , Gdx.graphics.getWidth()
+                , Gdx.graphics.getHeight()
+        );
+        spriteBatch.draw(logo
+                , (Gdx.graphics.getWidth() / 2) - 600
+                , (Gdx.graphics.getHeight()) - 400
+                , 1200
+                , 300);
+
+
         spriteBatch.draw(startButton
-                , (Gdx.graphics.getWidth()/2)-125
-                , (Gdx.graphics.getHeight()/2)-125
-                , 250
-                , 250);
+                , (Gdx.graphics.getWidth()/2)-175
+                , (Gdx.graphics.getHeight()/2)-275
+                , 350
+                , 350);
 
         spriteBatch.end();
         handleInput();
