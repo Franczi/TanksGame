@@ -5,17 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 
-public class MenuScreen extends BaseScreen {
-
-    private Texture startButton;
 
 
-    public MenuScreen(TanksGame game) {
+public class GameOverScreen extends BaseScreen {
+
+    private Texture gameOver;
+
+    public GameOverScreen(TanksGame game) {
         super(game);
-        startButton = new Texture("buttons/start.png");
-        EnvironmentCollisionManager.getInstance().life = 3;
-        EnvironmentCollisionManager.getInstance().score = 0;
+        gameOver = new Texture("background/Game_Over_Screen.png");
+
     }
+
 
     @Override
     public void show() {
@@ -26,11 +27,11 @@ public class MenuScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         spriteBatch.begin();
-        spriteBatch.draw(startButton
-                , (Gdx.graphics.getWidth()/2)-125
-                , (Gdx.graphics.getHeight()/2)-125
-                , 250
-                , 250);
+        spriteBatch.draw(gameOver
+                , 0
+                , 0
+                , Gdx.graphics.getWidth()
+                , Gdx.graphics.getHeight());
 
         spriteBatch.end();
         handleInput();
@@ -38,7 +39,7 @@ public class MenuScreen extends BaseScreen {
 
     private void handleInput() {
         if(Gdx.input.justTouched()){
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new ScoreScreen(game));
         }
 
     }
@@ -67,4 +68,6 @@ public class MenuScreen extends BaseScreen {
     public void dispose() {
         super.dispose();
     }
+
+
 }

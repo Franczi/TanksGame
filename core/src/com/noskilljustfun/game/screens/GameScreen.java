@@ -61,6 +61,8 @@ public class GameScreen extends BaseScreen {
         stage.addActor(enemy2);
         stage.addActor(enemy3);
         controller = new GameController(spriteBatch);
+        EnvironmentCollisionManager.getInstance().life = 3;
+        EnvironmentCollisionManager.getInstance().score = 0;
     }
 
 
@@ -86,8 +88,12 @@ public class GameScreen extends BaseScreen {
         enemy1.enemyShoot(delta,this.stage,this.bullets);
         enemy2.enemyShoot(delta,this.stage,this.bullets);
         enemy3.enemyShoot(delta,this.stage,this.bullets);
-
         updateBullets();
+
+        if (EnvironmentCollisionManager.getInstance().life == 0) {
+            game.setScreen(new GameOverScreen(game));
+        }
+
         stage.draw();
         spriteBatch.end();
         controller.draw();
