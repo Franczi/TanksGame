@@ -1,22 +1,17 @@
 package com.noskilljustfun.game.screens;
 
-import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.noskilljustfun.game.TanksGame;
 import com.noskilljustfun.game.gameObjects.Block;
 import com.noskilljustfun.game.gameObjects.Bullet;
-import com.noskilljustfun.game.gameObjects.ObjectNames;
 import com.noskilljustfun.game.gameObjects.TankEnemy;
 import com.noskilljustfun.game.gameObjects.TankPlayer;
 import com.noskilljustfun.game.gui.GameController;
+import com.noskilljustfun.game.logic.EnemyAI;
 import com.noskilljustfun.game.logic.EnvironmentCollisionManager;
 import com.noskilljustfun.game.utils.LevelGenerator;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -61,6 +56,7 @@ public class GameScreen extends BaseScreen {
         stage.addActor(enemy2);
         stage.addActor(enemy3);
         controller = new GameController(spriteBatch);
+        EnemyAI.getInstance().init(stage);
     }
 
 
