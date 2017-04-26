@@ -144,6 +144,7 @@ public class GameScreen extends BaseScreen {
         if (controller.isShoot()) {
             if (shotTime > 0.5) {
                 if (player.isCanShoot()) {
+                    EnvironmentCollisionManager.getInstance().ammo--;
                     shoot();
                 }
                 shotTime = 0.0f;

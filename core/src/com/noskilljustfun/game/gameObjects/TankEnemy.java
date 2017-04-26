@@ -62,7 +62,7 @@ public class TankEnemy extends Image {
 
 
     public void respawn(){
-        position = new Vector2(850,0);
+        position = new Vector2(850,900);
         setRotation(180);
         this.setPosition(position.x, position.y);
         setX(position.x);
@@ -70,6 +70,7 @@ public class TankEnemy extends Image {
         canShoot=true;
 
     }
+
 
 
     public int getVelocity() {

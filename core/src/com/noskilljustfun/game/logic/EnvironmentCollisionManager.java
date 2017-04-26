@@ -21,6 +21,7 @@ public class EnvironmentCollisionManager {
     Stage stage;
     public int score = 0;
     public int life = 3;
+    public int ammo = 20;
 
     private static EnvironmentCollisionManager ourInstance = new EnvironmentCollisionManager();
 
@@ -106,7 +107,12 @@ public class EnvironmentCollisionManager {
                     if (!bullet.isShotByEnemy()) {
                         actor.remove();
                         score += 10;
+                        ammo += 5;
                         ((TankEnemy) actor).setCanShoot(false);
+                        if (life != 0){
+                            ((TankEnemy) actor).respawn();
+                            stage.addActor(actor);
+                        }
 
                     }
                 }
