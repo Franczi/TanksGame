@@ -31,6 +31,7 @@ public class GameScreen extends BaseScreen {
     private List<Bullet> bullets;
     private Label scoreLabel;
     private Label playerLifeLabel;
+    private Label ammoLabel;
 
     private Bullet bullet;
     private float shotTime;
@@ -47,6 +48,7 @@ public class GameScreen extends BaseScreen {
         initBullets();
         initPlayerLifeLabel();
         initScoreLabel();
+        initAmmoLabel();
         LevelGenerator.getInstance().setStage(stage);
         LevelGenerator.getInstance().initLevelOne();
         EnvironmentCollisionManager.getInstance().setStage(stage);
@@ -57,6 +59,7 @@ public class GameScreen extends BaseScreen {
         controller = new GameController(spriteBatch);
         EnvironmentCollisionManager.getInstance().life = 3;
         EnvironmentCollisionManager.getInstance().score = 0;
+        EnvironmentCollisionManager.getInstance().ammo = 20;
         EnemyAI.getInstance().init(stage);
     }
 
@@ -75,6 +78,7 @@ public class GameScreen extends BaseScreen {
         handleInput(delta);
         updateScoreLabel();
         updatePlayerLifeLabel();
+        updateAmmoLabel();
         spriteBatch.begin();
         player.update();
         enemy1.update(delta);
@@ -85,9 +89,11 @@ public class GameScreen extends BaseScreen {
         enemy3.enemyShoot(delta,this.stage,this.bullets);
         updateBullets();
 
-        if (EnvironmentCollisionManager.getInstance().life == 0) {
+
+        if (EnvironmentCollisionManager.getInstance().life == 0 || EnvironmentCollisionManager.getInstance().ammo == 0) {
             game.setScreen(new GameOverScreen(game));
         }
+
 
         stage.draw();
         spriteBatch.end();
@@ -167,6 +173,20 @@ public class GameScreen extends BaseScreen {
         stage.addActor(scoreLabel);
         scoreLabel.setName("ScoreLabel");
     }
+    private void initAmmoLabel() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+
+        labelStyle.fontColor = Color.BLACK;
+        ammoLabel = new Label("", labelStyle);
+        ammoLabel.setX(20);
+        ammoLabel.setY(700);
+        ammoLabel.setFontScale(3);
+
+
+        stage.addActor(ammoLabel);
+        ammoLabel.setName("AmmoLabel");
+    }
     private void initPlayerLifeLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
@@ -220,6 +240,11 @@ public class GameScreen extends BaseScreen {
     private void updatePlayerLifeLabel(){
 
         playerLifeLabel.setText("Life: " + EnvironmentCollisionManager.getInstance().life );
+        stage.act();
+    }
+    private void updateAmmoLabel(){
+
+        ammoLabel.setText("Ammo: " + EnvironmentCollisionManager.getInstance().ammo );
         stage.act();
     }
 

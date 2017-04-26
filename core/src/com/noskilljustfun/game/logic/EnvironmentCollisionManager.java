@@ -11,6 +11,7 @@ import com.noskilljustfun.game.gameObjects.TankPlayer;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 
 public class EnvironmentCollisionManager {
@@ -19,6 +20,7 @@ public class EnvironmentCollisionManager {
     List<Bullet> bullets;
     List<Block> blocks;
     Stage stage;
+    private Random random = new Random();
     public int score = 0;
     public int life = 3;
     public int ammo = 20;
@@ -110,7 +112,15 @@ public class EnvironmentCollisionManager {
                         ammo += 5;
                         ((TankEnemy) actor).setCanShoot(false);
                         if (life != 0){
-                            ((TankEnemy) actor).respawn();
+                            double respawnPosition = 0.0f;
+                            respawnPosition = 1 + (4 - 1) * random.nextDouble();
+                            if (respawnPosition <=2.0){
+                                ((TankEnemy) actor).respawn(850,900);
+                            }else if (respawnPosition <=3.0 && respawnPosition > 2.0){
+                                ((TankEnemy) actor).respawn(410, 900);
+                            }else {
+                                ((TankEnemy) actor).respawn(1290,900);
+                            }
                             stage.addActor(actor);
                         }
 

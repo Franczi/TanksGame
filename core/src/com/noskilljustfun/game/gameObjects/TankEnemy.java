@@ -61,8 +61,8 @@ public class TankEnemy extends Image {
     }
 
 
-    public void respawn(){
-        position = new Vector2(850,900);
+    public void respawn(float x,float y){
+        position = new Vector2(x,y);
         setRotation(180);
         this.setPosition(position.x, position.y);
         setX(position.x);
